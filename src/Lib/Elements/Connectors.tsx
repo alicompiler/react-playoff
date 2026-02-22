@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { usePlayOffContext } from '../Provider/PlayOffContext';
-import { useWings } from '../Hooks/UseWings';
 
 interface MatchPosition {
     id: string;
@@ -13,7 +12,6 @@ interface MatchPosition {
 export const Connectors = () => {
     const [matchPositions, setMatchPositions] = useState<Record<string, MatchPosition>>({});
     const { contentRef, matchRefs, rounds, highlightedMatchIds, selectedMatchId, selectedTeamName } = usePlayOffContext();
-    const { isLeftWing } = useWings(rounds);
 
     // Update match positions for SVG connectors using logical coordinates
     useEffect(() => {
@@ -83,13 +81,8 @@ export const Connectors = () => {
                 const startY = start.y + start.height / 2;
                 const endY = end.y + end.height / 2;
 
-                if (isLeftWing(match.id)) {
-                    startXValue = start.x + start.width;
-                    endXValue = end.x;
-                } else {
-                    startXValue = start.x;
-                    endXValue = end.x + end.width;
-                }
+                startXValue = start.x;
+                endXValue = end.x + end.width;
 
                 const startX = startXValue;
                 const endX = endXValue;
