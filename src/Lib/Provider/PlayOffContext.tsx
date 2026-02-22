@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { PlayOffLayout, RenderMatchFunc, Rounds } from "./Types";
+import type { PlayOffLayout, RenderMatchFunc, Rounds } from "./../Types";
 
 export interface PlayOffContextType {
     layout: PlayOffLayout;
