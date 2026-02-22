@@ -15,6 +15,9 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
     const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
     const [selectedTeamName, setSelectedTeamName] = useState<string | null>(null);
 
+    console.log('Selected Match ID:', selectedMatchId);
+    console.log('Selected Team Name:', selectedTeamName);
+
     const setMatchRef = useCallback((id: string, el: HTMLElement | null) => {
         matchRefs.current[id] = el;
     }, []);

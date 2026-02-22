@@ -21,6 +21,7 @@ export const Connectors = () => {
             if (!contentRef.current) {
                 return;
             }
+
             const newPositions: Record<string, MatchPosition> = {};
 
             for (const [id, el] of Object.entries(matchRefs.current)) {
@@ -99,11 +100,7 @@ export const Connectors = () => {
                 // Highlight if the match's target is in the ancestor path of the selected match
                 // OR if the match itself is the source of a path leading to the selected match
                 let isHighlighted = false;
-                if (selectedMatchId) {
-                    isHighlighted =
-                        highlightedMatchIds.has(match.id) &&
-                        highlightedMatchIds.has(match.nextMatchId);
-                } else if (selectedTeamName) {
+                if (selectedTeamName) {
                     const inCurrent =
                         match.home?.name === selectedTeamName ||
                         match.away?.name === selectedTeamName;
@@ -112,6 +109,10 @@ export const Connectors = () => {
                         nextMatch?.home?.name === selectedTeamName ||
                         nextMatch?.away?.name === selectedTeamName;
                     isHighlighted = inCurrent && inNext;
+                } else if (selectedMatchId) {
+                    isHighlighted =
+                        highlightedMatchIds.has(match.id) &&
+                        highlightedMatchIds.has(match.nextMatchId);
                 }
 
                 paths.push(
