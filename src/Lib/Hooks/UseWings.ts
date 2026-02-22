@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import type { Rounds } from "./../Types";
+import type { Rounds } from "../Types";
 
 type IsRightWing = (id: string) => boolean;
 type IsLeftWing = (id: string) => boolean;
@@ -9,7 +9,7 @@ interface UseWingsDividerResult {
     isRightWing: IsRightWing;
 }
 
-export const useWingsDivider = (rounds: Rounds): UseWingsDividerResult => {
+export const useWings = (rounds: Rounds): UseWingsDividerResult => {
     const [leftWing] = useState<Set<string>>(new Set<string>());
     const [rightWing] = useState<Set<string>>(new Set<string>());
 
