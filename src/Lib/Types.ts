@@ -4,8 +4,8 @@ export interface Match {
     away: Participant;
     nextMatchId: string;
     score?: {
-        home: number;
-        away: number;
+        home: string;
+        away: string;
     }[];
 }
 

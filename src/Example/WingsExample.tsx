@@ -12,6 +12,7 @@ const rounds: Rounds = [
             away: {
                 name: 'Ukraine',
             },
+            score: [{ home: '3', away: '0' }],
             nextMatchId: '5',
         },
         {
@@ -22,6 +23,7 @@ const rounds: Rounds = [
             away: {
                 name: 'Argentina',
             },
+            score: [{ home: '1 (Penalties)', away: '1' }],
             nextMatchId: '5',
         },
         {
@@ -32,6 +34,7 @@ const rounds: Rounds = [
             away: {
                 name: 'England',
             },
+            score: [{ home: '0 (Penalties)', away: '0' }],
             nextMatchId: '6',
         },
         {
@@ -43,18 +46,20 @@ const rounds: Rounds = [
                 name: 'Brazil',
             },
             nextMatchId: '6',
+            score: [{ home: '1', away: '0' }],
         },
     ],
     [
         {
             id: '5',
             home: {
-                name: 'Italy',
-            },
-            away: {
                 name: 'Germany',
             },
+            away: {
+                name: 'Italy',
+            },
             nextMatchId: '7',
+            score: [{ home: '0', away: '2' }],
         },
         {
             id: '6',
@@ -65,6 +70,7 @@ const rounds: Rounds = [
                 name: 'France',
             },
             nextMatchId: '7',
+            score: [{ home: '0', away: '1' }],
         },
     ],
     [
@@ -76,6 +82,7 @@ const rounds: Rounds = [
             away: {
                 name: 'France',
             },
+            score: [{ home: '1 (Penalties)', away: '1' }],
             // TODO: use a symbol instead of string
             nextMatchId: '__final__',
         },

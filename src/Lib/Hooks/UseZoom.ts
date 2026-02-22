@@ -15,6 +15,9 @@ export const useZoom = (
 
     const handleWheel = (e: React.WheelEvent) => {
         if (e.ctrlKey || e.metaKey) {
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             const delta = e.deltaY > 0 ? 0.9 : 1.1;
             const newZoom = Math.min(Math.max(zoom * delta, 0.5), 1);
 

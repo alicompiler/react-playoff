@@ -77,7 +77,9 @@ const Inner = () => {
                     rounds
                         .slice(0, -1)
                         .map((round: Match[], index: number) => (
-                            <RoundColumn key={`left-${index}`} round={round.filter((m: Match) => isLeftWing(m.id))} />
+                            <RoundColumn
+                                key={`left-${index}`}
+                                round={round.filter((m: Match) => isLeftWing(m.id))} />
                         ))
                 }
 
