@@ -3,6 +3,10 @@ export interface Match {
     home: Participant;
     away: Participant;
     nextMatchId: string;
+    score?: {
+        home: number;
+        away: number;
+    }[];
 }
 
 export interface Participant {

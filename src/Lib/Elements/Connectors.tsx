@@ -12,7 +12,7 @@ interface MatchPosition {
 
 export const Connectors = () => {
     const [matchPositions, setMatchPositions] = useState<Record<string, MatchPosition>>({});
-    const { contentRef, matchRefs, rounds, highlightedMatchIds } = usePlayOffContext();
+    const { contentRef, matchRefs, rounds, highlightedMatchIds, selectedMatchId, selectedTeamName } = usePlayOffContext();
     const { isLeftWing } = useWings(rounds);
 
     // Update match positions for SVG connectors using logical coordinates
@@ -99,18 +99,18 @@ export const Connectors = () => {
                 // Highlight if the match's target is in the ancestor path of the selected match
                 // OR if the match itself is the source of a path leading to the selected match
                 let isHighlighted = false;
-                if (highlightedMatchId) {
+                if (selectedMatchId) {
                     isHighlighted =
                         highlightedMatchIds.has(match.id) &&
                         highlightedMatchIds.has(match.nextMatchId);
-                } else if (highlightedTeamName) {
+                } else if (selectedTeamName) {
                     const inCurrent =
-                        match.home?.name === highlightedTeamName ||
-                        match.away?.name === highlightedTeamName;
+                        match.home?.name === selectedTeamName ||
+                        match.away?.name === selectedTeamName;
                     const nextMatch = rounds.flat().find((m) => m.id === match.nextMatchId);
                     const inNext =
-                        nextMatch?.home?.name === highlightedTeamName ||
-                        nextMatch?.away?.name === highlightedTeamName;
+                        nextMatch?.home?.name === selectedTeamName ||
+                        nextMatch?.away?.name === selectedTeamName;
                     isHighlighted = inCurrent && inNext;
                 }
 
