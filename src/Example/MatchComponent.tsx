@@ -21,8 +21,8 @@ export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelect
 
     return (
         <div style={{ padding: 8, border: '1px solid black', backgroundColor: isMatchSelected ? 'lightblue' : 'white' }}>
-            <div onClick={() => handleClick(match.home.name)}>{match.home.name} {match.score && match.score.length > 0 ? `(${match.score[0].home})` : ''}</div>
-            <div onClick={() => handleClick(match.away.name)}>{match.away.name} {match.score && match.score.length > 0 ? `(${match.score[0].away})` : ''}</div>
+            <button onClick={() => handleClick(match.home.name)}>{match.home.name} {match.score && match.score.length > 0 ? `(${match.score[0].home})` : ''}</button>
+            <button onClick={() => handleClick(match.away.name)}>{match.away.name} {match.score && match.score.length > 0 ? `(${match.score[0].away})` : ''}</button>
         </div>
     );
 };

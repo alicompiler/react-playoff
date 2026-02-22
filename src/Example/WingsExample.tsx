@@ -1,5 +1,5 @@
 import { PlayOff } from "../Lib/PlayOff";
-import type { Rounds } from "../Lib/Types";
+import type { PlayOffLayout, Rounds } from "../Lib/Types";
 import { MatchComponent } from "./MatchComponent";
 
 const rounds: Rounds = [
@@ -89,14 +89,14 @@ const rounds: Rounds = [
     ],
 ];
 
-export const WingsExample = () => {
+export const Example = ({ layout }: { layout: PlayOffLayout }) => {
     return (
         <div style={{ width: '100vw', height: '100vh' }}>
             <h2 style={{ textAlign: 'center' }}>Wings Layout Example</h2>
             <div style={{ width: '100%', height: '90%' }}>
                 <PlayOff
                     rounds={rounds}
-                    layout="wings"
+                    layout={layout}
                     renderMatch={(match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
                         <MatchComponent
                             match={match}

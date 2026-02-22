@@ -1,12 +1,12 @@
 import { useRef } from "react";
-import { PlayOffProvider } from "./Provider/PlayOffProvider";
-import type { Match, PlayOffLayout, RenderMatchFunc, Rounds } from "./Types";
+import { Connectors } from "./Elements/Connectors";
 import { useDragging } from "./Hooks/UseDragging";
 import { useZoom } from "./Hooks/UseZoom";
+import { WingsLayout } from "./Layout/WingLayout";
 import { usePlayOffContext } from "./Provider/PlayOffContext";
-import { useWings } from "./Hooks/UseWings";
-import { Connectors } from "./Elements/Connectors";
-import { RoundColumn } from "./Elements/RoundColumn";
+import { PlayOffProvider } from "./Provider/PlayOffProvider";
+import type { PlayOffLayout, RenderMatchFunc, Rounds } from "./Types";
+import { TreeLayout } from "./Layout/TreeLayout";
 
 interface Props {
     rounds: Rounds;
@@ -30,8 +30,7 @@ const Inner = () => {
     const viewportRef = useRef<HTMLDivElement>(null);
     const { isDragging, position, setPosition, handleMouseDown, handleMouseMove, handleMouseUp } = useDragging();
     const { zoom, handleWheel } = useZoom(position, setPosition, viewportRef);
-    const { contentRef, rounds, setSelectedMatchId, setSelectedTeamName } = usePlayOffContext();
-    const { isRightWing, isLeftWing } = useWings(rounds);
+    const { contentRef, layout, setSelectedMatchId, setSelectedTeamName } = usePlayOffContext();
 
     return (
         <div
@@ -74,26 +73,10 @@ const Inner = () => {
                 <Connectors />
 
                 {
-                    rounds
-                        .slice(0, -1)
-                        .map((round: Match[], index: number) => (
-                            <RoundColumn
-                                key={`left-${index}`}
-                                round={round.filter((m: Match) => isLeftWing(m.id))} />
-                        ))
-                }
-
-                <RoundColumn round={rounds.at(-1) ?? []} />
-
-                {
-                    rounds
-                        .slice(0, -1)
-                        .toReversed()
-                        .map((round: Match[], index: number) => (
-                            <RoundColumn
-                                key={`right-${index}`}
-                                round={round.filter((m: Match) => isRightWing(m.id))} />
-                        ))
+                    layout === 'wings' ?
+                        <WingsLayout />
+                        :
+                        <TreeLayout />
                 }
             </div>
         </div>
