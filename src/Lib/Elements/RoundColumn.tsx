@@ -18,7 +18,7 @@ export const RoundColumn = ({ round }: Props) => {
 
     return (
         <div
-            className="__round-column"
+            className="__playoff-round-column"
             role="group"
             aria-label={`Round ${round[0]?.metadata?.roundTitle || 'Match'}`}
             style={{

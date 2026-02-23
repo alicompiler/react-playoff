@@ -29,7 +29,7 @@ export const MatchContainer = ({
 
     return <div
         key={match.id}
-        className="__match-container"
+        className="__playoff-match-container"
         style={{ position: 'relative' }}
         ref={(el: HTMLElement | null) => {
             setMatchRef(match.id, el);

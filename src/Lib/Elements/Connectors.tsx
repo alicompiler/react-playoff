@@ -110,10 +110,11 @@ export const Connectors = () => {
 
                 paths.push(
                     <path
+                        className={`__playoff-path ${isHighlighted ? '__playoff-path--highlighted' : ''}`}
                         key={`path-${match.id}`}
                         d={drawPath}
                         stroke={isHighlighted ? '#10b981' : '#334155'}
-                        strokeWidth={isHighlighted ? '3' : '2'}
+                        strokeWidth={isHighlighted ? '5' : '2'}
                         fill="none"
                         style={{ transition: 'stroke 0.2s, stroke-width 0.2s' }}
                     />,
