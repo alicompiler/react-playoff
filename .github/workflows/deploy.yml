@@ -19,8 +19,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run Tests with Coverage
+        run: npm run test:coverage
+
       - name: Build Demo
         run: npm run build:demo
+
+      - name: Generate Coverage Badge JSON
+        run: |
+          node -e "
+          const fs = require('fs');
+          const summary = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json'));
+          const pct = summary.total.statements.pct;
+          const color = pct >= 90 ? 'brightgreen' : pct >= 80 ? 'green' : pct >= 70 ? 'yellowgreen' : pct >= 60 ? 'yellow' : 'red';
+          const badge = {
+            schemaVersion: 1,
+            label: 'coverage',
+            message: \`\${pct}%\`,
+            color: color
+          };
+          fs.writeFileSync('./dist-demo/coverage-badge.json', JSON.stringify(badge));
+          "
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
