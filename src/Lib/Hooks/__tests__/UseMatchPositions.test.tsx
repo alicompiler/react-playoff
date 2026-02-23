@@ -1,14 +1,18 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useMatchPositions } from '../UseMatchPositions';
 import { PlayOffContext } from '../../Provider/PlayOffContext';
 import type { PlayOffContextType } from '../../Provider/PlayOffContext';
 
+let resizeCallback: ResizeObserverCallback;
 const observe = vi.fn();
 const disconnect = vi.fn();
 class MockResizeObserver {
+    constructor(callback: ResizeObserverCallback) {
+        resizeCallback = callback;
+    }
     observe = observe;
     unobserve = vi.fn();
     disconnect = disconnect;
@@ -73,8 +77,9 @@ describe('useMatchPositions', () => {
             wrapper: ({ children }) => wrapper({ children, context }),
         });
 
-        const resizeEvent = new Event('resize');
-        content.dispatchEvent(resizeEvent);
+        act(() => {
+            resizeCallback([], {} as ResizeObserver);
+        });
 
         expect(observe).toHaveBeenCalledWith(content);
 
@@ -104,8 +109,9 @@ describe('useMatchPositions', () => {
             wrapper: ({ children }) => wrapper({ children, context }),
         });
 
-        const resizeEvent = new Event('resize');
-        match1.dispatchEvent(resizeEvent);
+        act(() => {
+            resizeCallback([], {} as ResizeObserver);
+        });
 
         expect(observe).toHaveBeenCalledWith(match1);
 

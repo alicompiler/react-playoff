@@ -21,10 +21,7 @@ export const useWings = (rounds: Rounds): UseWingsDividerResult => {
         leftWing.clear();
         rightWing.clear();
 
-        const semiFinals = rounds.at(-2);
-        if (!semiFinals) {
-            throw new Error("Semi finals not found");
-        }
+        const semiFinals = rounds.at(-2)!;
         const semiFinalLeftIds = semiFinals.at(0)?.id;
         const semiFinalRightIds = semiFinals.at(1)?.id;
         if (!semiFinalLeftIds) {

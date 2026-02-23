@@ -82,4 +82,34 @@ describe('useDragging', () => {
 
         expect(result.current.isDragging).toBe(false);
     });
+
+    it('should not start dragging on non-left mouse down', () => {
+        const { result } = renderHook(() => useDragging(), {
+            wrapper: ({ children }) => wrapper({ children, context: mockContextBase as PlayOffContextType }),
+        });
+
+        act(() => {
+            result.current.handleMouseDown({ button: 1, clientX: 100, clientY: 100 } as React.MouseEvent<HTMLDivElement>);
+        });
+
+        expect(result.current.isDragging).toBe(false);
+    });
+
+    it('should not update position on mouse move if not dragging', () => {
+        const setPosition = vi.fn();
+        const context = {
+            ...mockContextBase,
+            setPosition,
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useDragging(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        act(() => {
+            result.current.handleMouseMove({ clientX: 150, clientY: 150 } as React.MouseEvent<HTMLDivElement>);
+        });
+
+        expect(setPosition).not.toHaveBeenCalled();
+    });
 });

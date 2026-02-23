@@ -84,4 +84,16 @@ describe('PlayOff Integration', () => {
 
         expect(teamA.className).not.toContain('__playoff-team-selected');
     });
+
+    it('clears selection when pressing the Escape key', () => {
+        const { container } = render(<PlayOff rounds={mockRounds} layout="tree" />);
+
+        const teamA = screen.getAllByLabelText(/Select Team A/)[0];
+        fireEvent.click(teamA);
+        expect(teamA.className).toContain('__playoff-team-selected');
+
+        fireEvent.keyDown(container.firstChild as HTMLElement, { key: 'Escape' });
+
+        expect(teamA.className).not.toContain('__playoff-team-selected');
+    });
 });

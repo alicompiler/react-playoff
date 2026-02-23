@@ -95,4 +95,80 @@ describe('useZoom', () => {
 
         expect(setPosition).toHaveBeenCalledWith({ x: -10, y: -20 });
     });
+
+    it('should call preventDefault when ctrlKey is true and event is cancelable', () => {
+        const viewport = document.createElement('div');
+        vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
+            left: 0,
+            top: 0,
+            width: 1000,
+            height: 1000,
+        } as DOMRect);
+
+        const context = {
+            ...mockContextBase,
+            viewportRef: { current: viewport },
+            contentRef: { current: document.createElement('div') },
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useZoom(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        const preventDefault = vi.fn();
+        const event = {
+            ctrlKey: true,
+            deltaY: 100,
+            clientX: 500,
+            clientY: 500,
+            cancelable: true,
+            preventDefault,
+        } as unknown as React.WheelEvent;
+
+        result.current.handleWheel(event);
+
+        expect(preventDefault).toHaveBeenCalled();
+    });
+
+    it('should zoom out when deltaY is negative', () => {
+        const setZoom = vi.fn();
+        const context = {
+            ...mockContextBase,
+            setZoom,
+            viewportRef: { current: document.createElement('div') },
+            contentRef: { current: document.createElement('div') },
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useZoom(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        const event = {
+            ctrlKey: true,
+            deltaY: -100,
+            clientX: 500,
+            clientY: 500,
+        } as unknown as React.WheelEvent;
+
+        result.current.handleWheel(event);
+
+        expect(setZoom).toHaveBeenCalledWith(1.1);
+    });
+
+    it('should return early if refs are missing', () => {
+        const setZoom = vi.fn();
+        const context = {
+            ...mockContextBase,
+            setZoom,
+            viewportRef: { current: null },
+            contentRef: { current: null },
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useZoom(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        result.current.handleWheel({} as React.WheelEvent);
+        expect(setZoom).not.toHaveBeenCalled();
+    });
 });

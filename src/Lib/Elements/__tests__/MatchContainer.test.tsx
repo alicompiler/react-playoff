@@ -81,4 +81,21 @@ describe('MatchContainer', () => {
         fireEvent.keyDown(container, { key: ' ' });
         expect(setSelectedTeamName).toHaveBeenCalledWith(null);
     });
+
+    it('does not clear selection on other key downs', () => {
+        const setSelectedTeamName = vi.fn();
+        render(
+            <MatchContainer
+                match={mockMatch}
+                renderMatch={mockRenderMatch}
+                selectedTeamName="Team A"
+                setSelectedTeamName={setSelectedTeamName}
+                setMatchRef={() => { }}
+            />
+        );
+
+        const container = screen.getByRole('button');
+        fireEvent.keyDown(container, { key: 'Shift' });
+        expect(setSelectedTeamName).not.toHaveBeenCalled();
+    });
 });

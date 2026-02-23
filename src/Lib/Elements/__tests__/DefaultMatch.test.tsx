@@ -43,6 +43,20 @@ describe('DefaultMatch', () => {
         expect(setSelectedTeamName).toHaveBeenCalledWith('Team A');
     });
 
+    it('calls setSelectedTeamName when the away team is clicked', () => {
+        const setSelectedTeamName = vi.fn();
+        render(
+            <DefaultMatch
+                match={mockMatch}
+                selectedTeam={null}
+                setSelectedTeamName={setSelectedTeamName}
+            />
+        );
+
+        fireEvent.click(screen.getByLabelText(/Select Team B/));
+        expect(setSelectedTeamName).toHaveBeenCalledWith('Team B');
+    });
+
     it('calls setSelectedTeamName with null when the already selected team is clicked', () => {
         const setSelectedTeamName = vi.fn();
         render(

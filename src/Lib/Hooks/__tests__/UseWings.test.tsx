@@ -49,4 +49,27 @@ describe('useWings', () => {
         expect(result.current.isLeftWing('1')).toBe(false);
         expect(result.current.isRightWing('1')).toBe(false);
     });
+
+    it('should throw error if semi final ids are missing', () => {
+        expect(() => {
+            renderHook(() => useWings([
+                [
+                    { id: '', home: { name: 'A' }, away: { name: 'D' }, nextMatchId: '7' },
+                    { id: '6', home: { name: 'F' }, away: { name: 'H' }, nextMatchId: '7' },
+                ],
+                [{ id: '7', home: { name: 'A' }, away: { name: 'H' }, nextMatchId: '' }]
+            ] as Rounds));
+        }).toThrow("Semi final left ids not found");
+    });
+
+    it('should throw error if semi final right ids are missing', () => {
+        expect(() => {
+            renderHook(() => useWings([
+                [
+                    { id: '5', home: { name: 'A' }, away: { name: 'D' }, nextMatchId: '7' },
+                ],
+                [{ id: '7', home: { name: 'A' }, away: { name: 'H' }, nextMatchId: '' }]
+            ] as Rounds));
+        }).toThrow("Semi final right ids not found");
+    });
 });
