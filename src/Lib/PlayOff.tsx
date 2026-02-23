@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Connectors } from "./Elements/Connectors";
 import { useDragging } from "./Hooks/UseDragging";
 import { useZoom } from "./Hooks/UseZoom";
@@ -31,10 +30,18 @@ export const PlayOff = ({ rounds, layout, renderMatch }: Props) => (
 
 
 const Inner = () => {
-    const viewportRef = useRef<HTMLDivElement>(null);
-    const { isDragging, position, setPosition, handleMouseDown, handleMouseMove, handleMouseUp } = useDragging();
-    const { zoom, handleWheel } = useZoom(position, setPosition, viewportRef);
-    const { contentRef, layout, setSelectedMatchId, setSelectedTeamName } = usePlayOffContext();
+    const { 
+        viewportRef, 
+        contentRef, 
+        layout, 
+        setSelectedMatchId, 
+        setSelectedTeamName,
+        position,
+        zoom
+    } = usePlayOffContext();
+
+    const { handleWheel } = useZoom();
+    const { isDragging, handleMouseDown, handleMouseMove, handleMouseUp } = useDragging();
 
     return (
         <div
@@ -55,6 +62,8 @@ const Inner = () => {
                 display: 'flex',
                 cursor: isDragging ? 'grabbing' : 'grab',
                 overflow: 'hidden',
+                height: '100%',
+                width: '100%',
             }}
         >
             <div

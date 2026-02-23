@@ -1,19 +1,19 @@
 import { useState } from "react";
-import type { Dispatch, MouseEventHandler, SetStateAction } from "react";
+import type { MouseEventHandler } from "react";
+import { clampPosition } from "../Utils/Geometry";
+import { usePlayOffContext } from "../Provider/PlayOffContext";
 
 export interface UseDraggingResult {
     isDragging: boolean;
-    position: { x: number; y: number };
-    setPosition: Dispatch<SetStateAction<{ x: number; y: number }>>;
     handleMouseDown: MouseEventHandler<HTMLDivElement>;
     handleMouseMove: MouseEventHandler<HTMLDivElement>;
     handleMouseUp: MouseEventHandler<HTMLDivElement>;
 }
 
 export const useDragging = (): UseDraggingResult => {
+    const { position, setPosition, zoom, viewportRef, contentRef } = usePlayOffContext();
     const [isDragging, setIsDragging] = useState(false);
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-    const [position, setPosition] = useState({ x: 0, y: 0 });
 
     const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
         const leftClick = 0;
@@ -27,11 +27,23 @@ export const useDragging = (): UseDraggingResult => {
     };
 
     const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
-        if (isDragging) {
-            setPosition({
+        if (isDragging && viewportRef.current && contentRef.current) {
+            const newPos = {
                 x: e.clientX - dragStart.x,
                 y: e.clientY - dragStart.y,
-            });
+            };
+
+            const viewportRect = viewportRef.current.getBoundingClientRect();
+            const contentWidth = contentRef.current.offsetWidth;
+            const contentHeight = contentRef.current.offsetHeight;
+
+            setPosition(clampPosition(
+                newPos,
+                zoom,
+                viewportRect,
+                contentWidth,
+                contentHeight
+            ));
         }
     };
 
@@ -41,8 +53,6 @@ export const useDragging = (): UseDraggingResult => {
 
     return {
         isDragging,
-        position,
-        setPosition,
         handleMouseDown,
         handleMouseMove,
         handleMouseUp,

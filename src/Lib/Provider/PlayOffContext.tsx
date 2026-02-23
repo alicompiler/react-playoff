@@ -5,6 +5,7 @@ export interface PlayOffContextType {
     layout: PlayOffLayout;
     rounds: Rounds;
 
+    viewportRef: React.RefObject<HTMLDivElement | null>;
     contentRef: React.RefObject<HTMLDivElement | null>;
 
     renderMatch: RenderMatchFunc
@@ -17,6 +18,11 @@ export interface PlayOffContextType {
     setSelectedMatchId: (id: string | null) => void;
     selectedTeamName: string | null;
     setSelectedTeamName: (name: string | null) => void;
+
+    position: { x: number; y: number };
+    setPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
+    zoom: number;
+    setZoom: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const PlayOffContext = createContext<PlayOffContextType | null>(null);

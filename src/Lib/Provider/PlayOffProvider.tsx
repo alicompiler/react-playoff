@@ -10,10 +10,14 @@ interface Props extends PropsWithChildren {
 }
 
 export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props) => {
+    const viewportRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const matchRefs = useRef<Record<string, HTMLElement | null>>({});
     const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
     const [selectedTeamName, setSelectedTeamName] = useState<string | null>(null);
+
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
 
     console.log('Selected Match ID:', selectedMatchId);
     console.log('Selected Team Name:', selectedTeamName);
@@ -32,6 +36,7 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
             layout,
             rounds,
 
+            viewportRef,
             contentRef,
 
             renderMatch,
@@ -44,10 +49,16 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
             setSelectedMatchId,
             selectedTeamName,
             setSelectedTeamName,
+
+            position,
+            setPosition,
+            zoom,
+            setZoom,
         }),
         [
             layout,
             rounds,
+            viewportRef,
             contentRef,
             renderMatch,
             matchRefs,
@@ -57,6 +68,10 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
             setSelectedMatchId,
             selectedTeamName,
             setSelectedTeamName,
+            position,
+            setPosition,
+            zoom,
+            setZoom,
         ],
     );
     return <PlayOffContext.Provider value={value}>{children}</PlayOffContext.Provider>;
