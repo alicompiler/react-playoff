@@ -6,10 +6,11 @@ import { getMatchIdsToHighlight } from "../Utils/Match";
 interface Props extends PropsWithChildren {
     rounds: Rounds;
     layout: PlayOffLayout;
-    renderMatch: RenderMatchFunc
+    renderMatch: RenderMatchFunc;
+    renderPaths?: boolean;
 }
 
-export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props) => {
+export const PlayOffProvider = ({ children, rounds, layout, renderMatch, renderPaths = true }: Props) => {
     const viewportRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const matchRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -54,6 +55,7 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
             setPosition,
             zoom,
             setZoom,
+            renderPaths,
         }),
         [
             layout,
@@ -72,6 +74,7 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch }: Props
             setPosition,
             zoom,
             setZoom,
+            renderPaths,
         ],
     );
     return <PlayOffContext.Provider value={value}>{children}</PlayOffContext.Provider>;

@@ -23,6 +23,7 @@ export interface PlayOffContextType {
     setPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
     zoom: number;
     setZoom: React.Dispatch<React.SetStateAction<number>>;
+    renderPaths: boolean;
 }
 
 export const PlayOffContext = createContext<PlayOffContextType | null>(null);

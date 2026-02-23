@@ -60,7 +60,7 @@ const rounds: Rounds = [
     ]
 ];
 
-export const Example = ({ layout }: { layout: PlayOffLayout }) => {
+export const Example = ({ layout, renderPaths = true }: { layout: PlayOffLayout, renderPaths?: boolean }) => {
     return (
         <div style={{
             backgroundColor: '#2B2B2B',
@@ -70,6 +70,7 @@ export const Example = ({ layout }: { layout: PlayOffLayout }) => {
             <PlayOff
                 rounds={rounds}
                 layout={layout}
+                renderPaths={renderPaths}
                 renderMatch={(match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
                     <MatchComponent
                         match={match}

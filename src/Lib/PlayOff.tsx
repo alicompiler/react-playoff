@@ -11,19 +11,16 @@ interface Props {
     rounds: Rounds;
     layout: PlayOffLayout;
     renderMatch: RenderMatchFunc;
-    // renderPaths: bool
+    renderPaths?: boolean;
     // startingZoom: number;
     // max, min zoom
     // renderStats : (stats: Stats) => React.ReactNode;
     // statsPosition: 'top' | 'bottom';
 }
-// prevent zooming out too much
-// increase zooming in
-// prevent zooming in/out effecting elements outside the viewport (e.g. header, footer, etc.)
 // customized height
 
-export const PlayOff = ({ rounds, layout, renderMatch }: Props) => (
-    <PlayOffProvider rounds={rounds} renderMatch={renderMatch} layout={layout}>
+export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Props) => (
+    <PlayOffProvider rounds={rounds} renderMatch={renderMatch} layout={layout} renderPaths={renderPaths}>
         <Inner />
     </PlayOffProvider>
 );
@@ -37,7 +34,8 @@ const Inner = () => {
         setSelectedMatchId, 
         setSelectedTeamName,
         position,
-        zoom
+        zoom,
+        renderPaths
     } = usePlayOffContext();
 
     const { handleWheel } = useZoom();
@@ -80,7 +78,7 @@ const Inner = () => {
                     transition: isDragging ? 'none' : 'transform 0.1s ease-out',
                 }}
             >
-                <Connectors />
+                {renderPaths && <Connectors />}
 
                 {
                     layout === 'wings' ?
