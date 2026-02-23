@@ -1,8 +1,24 @@
 {
   "name": "react-playoff",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A flexible and customizable React component library for rendering playoff brackets.",
   "type": "module",
+  "private": false,
+  "main": "./dist/react-playoff.umd.cjs",
+  "module": "./dist/react-playoff.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/react-playoff.js",
+      "require": "./dist/react-playoff.umd.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -12,7 +28,7 @@
     "test:ui": "vitest --ui",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
@@ -34,6 +50,21 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.0",
     "vitest": "^4.0.18"
+  },
+  "keywords": [
+    "react",
+    "playoff",
+    "tournament",
+    "bracket",
+    "sports",
+    "ui-components"
+  ],
+  "author": "Ali",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali/react-playoff.git"
   }
 }
