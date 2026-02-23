@@ -1,0 +1,32 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="1" dy="1" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <g filter="url(#shadow)">
+    <!-- Bracket Path 1 -->
+    <path d="M15 25H30V40H15" stroke="url(#logo-gradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Bracket Path 2 -->
+    <path d="M15 60H30V75H15" stroke="url(#logo-gradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Central Connection -->
+    <path d="M30 32.5H45V67.5H30" stroke="url(#logo-gradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- The 'P' shape merging from the connection -->
+    <path d="M45 50H65C76 50 85 41 85 30C85 19 76 10 65 10H45V90" stroke="url(#logo-gradient)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
