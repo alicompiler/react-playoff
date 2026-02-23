@@ -3,17 +3,20 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 
+const isLib = process.env.BUILD_LIB === 'true';
+
 export default defineConfig({
+    base: isLib ? '/' : '/react-playoff/',
     plugins: [
         react(),
-        dts({
+        isLib && dts({
             include: ['src/Lib'],
             insertTypesEntry: true,
             rollupTypes: true,
             tsconfigPath: './tsconfig.lib.json',
         }),
-    ],
-    build: {
+    ].filter(Boolean),
+    build: isLib ? {
         lib: {
             entry: resolve(__dirname, 'src/Lib/index.ts'),
             name: 'ReactPlayoff',
@@ -28,6 +31,8 @@ export default defineConfig({
                 },
             },
         },
+    } : {
+        outDir: 'dist-demo',
     },
     test: {
         globals: true,

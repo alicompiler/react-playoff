@@ -21,7 +21,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "BUILD_LIB=true tsc -b && BUILD_LIB=true vite build",
+    "build:demo": "vite build",
     "lint": "eslint .",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
