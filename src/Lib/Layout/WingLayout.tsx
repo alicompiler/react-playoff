@@ -3,11 +3,9 @@ import { useWings } from '../Hooks/UseWings';
 import { usePlayOffContext } from '../Provider/PlayOffContext';
 import type { Match } from '../Types';
 
-
 export const WingsLayout = () => {
     const { rounds } = usePlayOffContext();
     const { isRightWing, isLeftWing } = useWings(rounds);
-
 
     return <>
         {

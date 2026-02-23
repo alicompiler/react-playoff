@@ -8,16 +8,13 @@ export const clampPosition = (
 ) => {
     const vWidth = viewportRect.width;
     const vHeight = viewportRect.height;
-    
-    // Ensure at least 'padding' pixels of the content are visible in the viewport
-    // or the whole content if it's smaller than the padding (not likely but safe)
-    
+
     const actualPaddingX = Math.min(padding, contentWidth * zoom);
     const actualPaddingY = Math.min(padding, contentHeight * zoom);
 
     const minX = actualPaddingX - contentWidth * zoom;
     const maxX = vWidth - actualPaddingX;
-    
+
     const minY = actualPaddingY - contentHeight * zoom;
     const maxY = vHeight - actualPaddingY;
 

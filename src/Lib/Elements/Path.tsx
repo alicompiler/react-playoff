@@ -21,17 +21,17 @@ export const Path = ({ matchPosition, nextMatchPosition, match }: Props) => {
     let isHighlighted = false;
     if (selectedTeamName) {
         const inCurrent =
-                        match.home?.name === selectedTeamName ||
-                        match.away?.name === selectedTeamName;
+            match.home?.name === selectedTeamName ||
+            match.away?.name === selectedTeamName;
         const nextMatch = rounds.flat().find((m) => m.id === match.nextMatchId);
         const inNext =
-                        nextMatch?.home?.name === selectedTeamName ||
-                        nextMatch?.away?.name === selectedTeamName;
+            nextMatch?.home?.name === selectedTeamName ||
+            nextMatch?.away?.name === selectedTeamName;
         isHighlighted = inCurrent && inNext;
     } else if (selectedMatchId) {
         isHighlighted =
-                        highlightedMatchIds.has(match.id) &&
-                        highlightedMatchIds.has(match.nextMatchId);
+            highlightedMatchIds.has(match.id) &&
+            highlightedMatchIds.has(match.nextMatchId);
     }
 
     return <path

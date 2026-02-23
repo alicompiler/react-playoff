@@ -27,11 +27,9 @@ export const useZoom = (): UseZoomResult => {
                 const mouseX = e.clientX - viewportRect.left;
                 const mouseY = e.clientY - viewportRect.top;
 
-                // Project mouse into logical coordinates
                 const contentX = (mouseX - position.x) / zoom;
                 const contentY = (mouseY - position.y) / zoom;
 
-                // Adjust position to keep the content point under the mouse
                 const newPos = {
                     x: mouseX - contentX * newZoom,
                     y: mouseY - contentY * newZoom,
