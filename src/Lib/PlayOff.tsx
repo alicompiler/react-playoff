@@ -18,6 +18,10 @@ interface Props {
     // renderStats : (stats: Stats) => React.ReactNode;
     // statsPosition: 'top' | 'bottom';
 }
+// prevent zooming out too much
+// increase zooming in
+// prevent zooming in/out effecting elements outside the viewport (e.g. header, footer, etc.)
+// customized height
 
 export const PlayOff = ({ rounds, layout, renderMatch }: Props) => (
     <PlayOffProvider rounds={rounds} renderMatch={renderMatch} layout={layout}>
@@ -51,15 +55,12 @@ const Inner = () => {
                 display: 'flex',
                 cursor: isDragging ? 'grabbing' : 'grab',
                 overflow: 'hidden',
-                // TODO: why
-                userSelect: 'none',
             }}
         >
             <div
                 className="__playoff-content"
                 ref={contentRef}
                 style={{
-                    position: 'absolute',
                     transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
                     transformOrigin: '0 0',
                     display: 'flex',

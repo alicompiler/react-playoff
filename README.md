@@ -1,3 +1,3 @@
 # React Playoff
 
-- Render Matches in a playoff style bracket
+A React component library for rendering playoff brackets. It provides a flexible and customizable way to display tournament structures, allowing you to create visually appealing and interactive playoff brackets for various sports and competitions.

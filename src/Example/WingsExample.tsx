@@ -91,23 +91,23 @@ const rounds: Rounds = [
 
 export const Example = ({ layout }: { layout: PlayOffLayout }) => {
     return (
-        <div style={{ width: '100vw', height: '100vh' }}>
-            <h2 style={{ textAlign: 'center' }}>Wings Layout Example</h2>
-            <div style={{ width: '100%', height: '90%' }}>
-                <PlayOff
-                    rounds={rounds}
-                    layout={layout}
-                    renderMatch={(match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
-                        <MatchComponent
-                            match={match}
-                            isMatchSelected={isMatchSelected}
-                            selectedTeam={selectedTeam}
-                            setSelectedMatchId={setSelectedMatchId}
-                            setSelectedTeamName={setSelectedTeamName}
-                        />
-                    )}
-                />
-            </div>
+        <div style={{
+            backgroundColor: '#2B2B2B',
+            width: '100%',
+        }}>
+            <PlayOff
+                rounds={rounds}
+                layout={layout}
+                renderMatch={(match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
+                    <MatchComponent
+                        match={match}
+                        isMatchSelected={isMatchSelected}
+                        selectedTeam={selectedTeam}
+                        setSelectedMatchId={setSelectedMatchId}
+                        setSelectedTeamName={setSelectedTeamName}
+                    />
+                )}
+            />
         </div>
     );
 };
