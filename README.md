@@ -1,7 +1,7 @@
 # React Playoff
 
 [![Deploy Demo](https://github.com/alicompiler/react-playoff/actions/workflows/deploy.yml/badge.svg)](https://github.com/alicompiler/react-playoff/actions/workflows/deploy.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https://alicompiler.github.io/react-playoff/coverage-badge.json)](https://alicompiler.github.io/react-playoff/)
+[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/alicompiler/react-playoff/gh-pages/coverage-badge.json)](https://alicompiler.github.io/react-playoff/)
 
 A React component library for rendering playoff brackets. It provides a flexible and customizable way to display tournament structures, allowing you to create visually appealing and interactive playoff brackets for various sports and competitions.
 

@@ -29,7 +29,12 @@ jobs:
         run: |
           node -e "
           const fs = require('fs');
-          const summary = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json'));
+          const path = './coverage/coverage-summary.json';
+          if (!fs.existsSync(path)) {
+            console.error('Coverage summary not found!');
+            process.exit(1);
+          }
+          const summary = JSON.parse(fs.readFileSync(path));
           const pct = summary.total.statements.pct;
           const color = pct >= 90 ? 'brightgreen' : pct >= 80 ? 'green' : pct >= 70 ? 'yellowgreen' : pct >= 60 ? 'yellow' : 'red';
           const badge = {
@@ -38,6 +43,7 @@ jobs:
             message: \`\${pct}%\`,
             color: color
           };
+          if (!fs.existsSync('./dist-demo')) fs.mkdirSync('./dist-demo', { recursive: true });
           fs.writeFileSync('./dist-demo/coverage-badge.json', JSON.stringify(badge));
           "
 
