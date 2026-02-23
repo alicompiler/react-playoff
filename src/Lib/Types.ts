@@ -7,6 +7,7 @@ export interface Match {
         home: string;
         away: string;
     }[];
+    metadata?: Record<string, unknown>;
 }
 
 export interface Participant {
