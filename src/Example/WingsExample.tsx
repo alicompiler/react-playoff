@@ -1,5 +1,5 @@
 import { PlayOff } from "../Lib/PlayOff";
-import type { Match, PlayOffLayout, Rounds } from "../Lib/Types";
+import type { Match, PlayOffLayout, RenderMatchFunc, Rounds } from "../Lib/Types";
 import { MatchComponent } from "./MatchComponent";
 
 const createMatch = (home: string, away: string, score: string, nextMatchId: string, metadata?: Record<string, unknown>, id?: string): Match => ({
@@ -60,7 +60,17 @@ const rounds: Rounds = [
     ]
 ];
 
-export const Example = ({ layout, renderPaths = true }: { layout: PlayOffLayout, renderPaths?: boolean }) => {
+export const Example = ({ layout, renderPaths = true, defaultMatch }: { layout: PlayOffLayout, renderPaths?: boolean, defaultMatch?: boolean }) => {
+    const customMatchRender: RenderMatchFunc = (match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
+        <MatchComponent
+            match={match}
+            isMatchSelected={isMatchSelected}
+            selectedTeam={selectedTeam}
+            setSelectedMatchId={setSelectedMatchId}
+            setSelectedTeamName={setSelectedTeamName}
+        />
+    );
+
     return (
         <div style={{
             backgroundColor: '#2B2B2B',
@@ -71,15 +81,7 @@ export const Example = ({ layout, renderPaths = true }: { layout: PlayOffLayout,
                 rounds={rounds}
                 layout={layout}
                 renderPaths={renderPaths}
-                renderMatch={(match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
-                    <MatchComponent
-                        match={match}
-                        isMatchSelected={isMatchSelected}
-                        selectedTeam={selectedTeam}
-                        setSelectedMatchId={setSelectedMatchId}
-                        setSelectedTeamName={setSelectedTeamName}
-                    />
-                )}
+                renderMatch={defaultMatch ? undefined : customMatchRender}
             />
         </div>
     );

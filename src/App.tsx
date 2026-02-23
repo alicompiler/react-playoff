@@ -6,6 +6,7 @@ import "./styles.css";
 function App() {
     const [layout, setLayout] = useState<PlayOffLayout>('wings');
     const [renderPaths, setRenderPaths] = useState(true);
+    const [defaultMatch, setDefaultMatch] = useState(true);
 
     return (
         <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -53,9 +54,16 @@ function App() {
                         Render Paths
                         </label>
                     </div>
+
+                    <div>
+                        <label>
+                            <input type="checkbox" checked={defaultMatch} onChange={(e) => setDefaultMatch(e.target.checked)} />
+                        Default Match
+                        </label>
+                    </div>
                 </div>
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Example layout={layout} renderPaths={renderPaths} />
+                    <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
                 </div>
             </div>
         </div>

@@ -6,16 +6,17 @@ import { usePlayOffContext } from "./Provider/PlayOffContext";
 import { PlayOffProvider } from "./Provider/PlayOffProvider";
 import type { PlayOffLayout, RenderMatchFunc, Rounds } from "./Types";
 import { TreeLayout } from "./Layout/TreeLayout";
+import { renderDefaultMatch } from "./Elements/DefaultMatch";
 
 interface Props {
     rounds: Rounds;
     layout: PlayOffLayout;
-    renderMatch: RenderMatchFunc;
+    renderMatch?: RenderMatchFunc;
     renderPaths?: boolean;
 }
 
 export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Props) => (
-    <PlayOffProvider rounds={rounds} renderMatch={renderMatch} layout={layout} renderPaths={renderPaths}>
+    <PlayOffProvider rounds={rounds} renderMatch={renderMatch ?? renderDefaultMatch} layout={layout} renderPaths={renderPaths}>
         <Inner />
     </PlayOffProvider>
 );
