@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import { usePlayOffContext } from '../Provider/PlayOffContext';
-
-interface MatchPosition {
-    id: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
+import type { Match, MatchPosition } from '../Types';
+import { Path } from './Path';
 
 export const Connectors = () => {
     const [matchPositions, setMatchPositions] = useState<Record<string, MatchPosition>>({});
-    const { contentRef, matchRefs, rounds, highlightedMatchIds, selectedMatchId, selectedTeamName } = usePlayOffContext();
+    const { contentRef, matchRefs, rounds } = usePlayOffContext();
 
     // Update match positions for SVG connectors using logical coordinates
     useEffect(() => {
@@ -65,63 +59,7 @@ export const Connectors = () => {
         return () => observer.disconnect();
     }, [rounds, contentRef, matchRefs]); // Removed zoom dependency since logical coords are zoom-independent
 
-    const paths: React.ReactNode[] = [];
-    for (const round of rounds) {
-        for (const match of round) {
-            if (
-                match.nextMatchId &&
-                matchPositions[match.id] &&
-                matchPositions[match.nextMatchId]
-            ) {
-                const start = matchPositions[match.id];
-                const end = matchPositions[match.nextMatchId];
-
-                let startXValue: number = 0;
-                let endXValue: number = 0;
-                const startY = start.y + start.height / 2;
-                const endY = end.y + end.height / 2;
-
-                startXValue = start.x;
-                endXValue = end.x + end.width;
-
-                const startX = startXValue;
-                const endX = endXValue;
-
-                const midX = startX + (endX - startX) / 2;
-                const drawPath = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`;
-
-                // Highlight if the match's target is in the ancestor path of the selected match
-                // OR if the match itself is the source of a path leading to the selected match
-                let isHighlighted = false;
-                if (selectedTeamName) {
-                    const inCurrent =
-                        match.home?.name === selectedTeamName ||
-                        match.away?.name === selectedTeamName;
-                    const nextMatch = rounds.flat().find((m) => m.id === match.nextMatchId);
-                    const inNext =
-                        nextMatch?.home?.name === selectedTeamName ||
-                        nextMatch?.away?.name === selectedTeamName;
-                    isHighlighted = inCurrent && inNext;
-                } else if (selectedMatchId) {
-                    isHighlighted =
-                        highlightedMatchIds.has(match.id) &&
-                        highlightedMatchIds.has(match.nextMatchId);
-                }
-
-                paths.push(
-                    <path
-                        className={`__playoff-path ${isHighlighted ? '__playoff-path--highlighted' : ''}`}
-                        key={`path-${match.id}`}
-                        d={drawPath}
-                        stroke={isHighlighted ? '#10b981' : '#334155'}
-                        strokeWidth={isHighlighted ? '5' : '2'}
-                        fill="none"
-                        style={{ transition: 'stroke 0.2s, stroke-width 0.2s' }}
-                    />,
-                );
-            }
-        }
-    }
+    const hasPosition = (m: Match) => matchPositions[m.id] && matchPositions[m.nextMatchId];
 
     return (
         <svg
@@ -139,7 +77,16 @@ export const Connectors = () => {
                 overflow: 'visible',
             }}
         >
-            {paths}
+            {
+                rounds.flat().map((m) =>
+                    hasPosition(m) && <Path
+                        key={`path-${m.id}`}
+                        matchPosition={matchPositions[m.id]}
+                        nextMatchPosition={matchPositions[m.nextMatchId]}
+                        match={m}
+                    />
+                )
+            }
         </svg>
     );
 };

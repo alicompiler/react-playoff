@@ -27,3 +27,11 @@ export type RenderMatchFunc = (
         setSelectedTeamName: (name: string | null) => void;
     },
 ) => React.ReactNode;
+
+export interface MatchPosition {
+    id: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
