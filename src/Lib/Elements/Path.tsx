@@ -16,7 +16,24 @@ export const Path = ({ matchPosition, nextMatchPosition, match }: Props) => {
     const endX = nextMatchPosition.x + nextMatchPosition.width;
     const midX = startX + (endX - startX) / 2;
 
-    const drawPath = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`;
+    const distX = midX - startX;
+    const distY = endY - startY;
+    const r = Math.min(Math.abs(distX), Math.abs(distY) / 2, 12);
+
+    let drawPath = "";
+    if (distY === 0 || r === 0) {
+        drawPath = `M ${startX} ${startY} L ${endX} ${endY}`;
+    } else {
+        const signX = Math.sign(distX);
+        const signY = Math.sign(distY);
+
+        drawPath = `M ${startX} ${startY} ` +
+            `L ${midX - signX * r} ${startY} ` +
+            `Q ${midX} ${startY}, ${midX} ${startY + signY * r} ` +
+            `L ${midX} ${endY - signY * r} ` +
+            `Q ${midX} ${endY}, ${midX + signX * r} ${endY} ` +
+            `L ${endX} ${endY}`;
+    }
 
     let isHighlighted = false;
     if (selectedTeamName) {
