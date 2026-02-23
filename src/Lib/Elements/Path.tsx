@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const Path = ({ matchPosition, nextMatchPosition, match }: Props) => {
-    const { selectedTeamName, selectedMatchId, highlightedMatchIds, rounds } = usePlayOffContext();
+    const { selectedTeamName, rounds } = usePlayOffContext();
 
     const startY = matchPosition.y + matchPosition.height / 2;
     const endY = nextMatchPosition.y + nextMatchPosition.height / 2;
@@ -28,10 +28,6 @@ export const Path = ({ matchPosition, nextMatchPosition, match }: Props) => {
             nextMatch?.home?.name === selectedTeamName ||
             nextMatch?.away?.name === selectedTeamName;
         isHighlighted = inCurrent && inNext;
-    } else if (selectedMatchId) {
-        isHighlighted =
-            highlightedMatchIds.has(match.id) &&
-            highlightedMatchIds.has(match.nextMatchId);
     }
 
     return <path

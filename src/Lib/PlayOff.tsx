@@ -22,15 +22,14 @@ export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Pro
 );
 
 const Inner = () => {
-    const { 
-        viewportRef, 
-        contentRef, 
-        layout, 
-        setSelectedMatchId, 
+    const {
+        viewportRef,
+        contentRef,
+        layout,
         setSelectedTeamName,
         position,
         zoom,
-        renderPaths
+        renderPaths,
     } = usePlayOffContext();
 
     const { handleWheel } = useZoom();
@@ -47,12 +46,10 @@ const Inner = () => {
             onMouseLeave={handleMouseUp}
             onKeyDown={(e) => {
                 if (e.key === 'Escape') {
-                    setSelectedMatchId(null);
                     setSelectedTeamName(null);
                 }
             }}
             onClick={() => {
-                setSelectedMatchId(null);
                 setSelectedTeamName(null);
             }}
             role="region"

@@ -22,8 +22,6 @@ export type RenderMatchFunc = (
     match: Match,
     options: {
         selectedTeam: string | null;
-        isMatchSelected: boolean;
-        setSelectedMatchId: (id: string | null) => void;
         setSelectedTeamName: (name: string | null) => void;
     },
 ) => React.ReactNode;

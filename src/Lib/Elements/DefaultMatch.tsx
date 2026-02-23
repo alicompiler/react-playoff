@@ -2,19 +2,15 @@ import type { Match, RenderMatchFunc } from "../Types";
 
 interface Props {
     match: Match;
-    isMatchSelected: boolean;
     selectedTeam: string | null;
-    setSelectedMatchId: (id: string | null) => void;
     setSelectedTeamName: (name: string | null) => void;
 }
 
-export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelectedMatchId, setSelectedTeamName }: Props) => {
+export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props) => {
     const handleClick = (teamName: string | null) => {
-        if (isMatchSelected && selectedTeam === teamName) {
-            setSelectedMatchId(null);
+        if (selectedTeam === teamName) {
             setSelectedTeamName(null);
         } else {
-            setSelectedMatchId(match.id);
             setSelectedTeamName(teamName);
         }
     };
@@ -24,12 +20,12 @@ export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelected
 
     return (
         <div
-            className={`__playoff-default-match ${isMatchSelected ? '__playoff-match-selected' : ''}`}
+            className="__playoff-default-match"
             style={{
                 display: 'flex',
                 flexDirection: 'column',
                 padding: 4,
-                backgroundColor: isMatchSelected ? '#EEE' : '#FFF',
+                backgroundColor: '#FFF',
                 gap: 4,
                 borderRadius: 4,
             }}>
@@ -86,13 +82,15 @@ export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelected
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const renderDefaultMatch: RenderMatchFunc = (match, options) => {
+    const {
+        selectedTeam,
+        setSelectedTeamName
+    } = options;
     return (
         <DefaultMatch
             match={match}
-            isMatchSelected={options.isMatchSelected}
-            selectedTeam={options.selectedTeam}
-            setSelectedMatchId={options.setSelectedMatchId}
-            setSelectedTeamName={options.setSelectedTeamName}
+            selectedTeam={selectedTeam}
+            setSelectedTeamName={setSelectedTeamName}
         />
     );
 };

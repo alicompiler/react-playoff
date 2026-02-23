@@ -12,10 +12,7 @@ export interface PlayOffContextType {
 
     matchRefs: React.RefObject<Record<string, HTMLElement | null>>;
     setMatchRef: (id: string, el: HTMLElement | null) => void;
-    highlightedMatchIds: Set<string>;
 
-    selectedMatchId: string | null;
-    setSelectedMatchId: (id: string | null) => void;
     selectedTeamName: string | null;
     setSelectedTeamName: (name: string | null) => void;
 

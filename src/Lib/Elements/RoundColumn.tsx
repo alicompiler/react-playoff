@@ -10,10 +10,8 @@ export const RoundColumn = ({ round }: Props) => {
     const {
         setMatchRef,
         renderMatch,
-        setSelectedMatchId,
         setSelectedTeamName,
         selectedTeamName,
-        selectedMatchId,
     } = usePlayOffContext();
 
     return (
@@ -35,8 +33,6 @@ export const RoundColumn = ({ round }: Props) => {
                     match={match}
                     renderMatch={renderMatch}
                     selectedTeamName={selectedTeamName}
-                    selectedMatchId={selectedMatchId}
-                    setSelectedMatchId={setSelectedMatchId}
                     setSelectedTeamName={setSelectedTeamName}
                     setMatchRef={setMatchRef}
                 />)
