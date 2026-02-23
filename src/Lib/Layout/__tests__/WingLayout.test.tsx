@@ -6,7 +6,6 @@ import { PlayOffContext, type PlayOffContextType } from '../../Provider/PlayOffC
 import type { Match } from '../../Types';
 import { useWings } from '../../Hooks/UseWings';
 
-// Mock the hook
 vi.mock('../../Hooks/UseWings', () => ({
     useWings: vi.fn(),
 }));

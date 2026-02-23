@@ -56,7 +56,6 @@ describe('Connectors', () => {
 
         const matchPositions = {
             '1': { id: '1', x: 0, y: 0, width: 100, height: 50 },
-            // Missing position for '3'
         };
 
         (useMatchPositions as Mock).mockReturnValue({ matchPositions });
