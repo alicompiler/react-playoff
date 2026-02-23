@@ -10,11 +10,6 @@ interface Props {
 
 export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelectedMatchId, setSelectedTeamName }: Props) => {
     const handleClick = (teamName: string | null) => {
-        console.log({
-            teamName,
-            isMatchSelected,
-            selectedTeam,
-        });
         if (isMatchSelected && selectedTeam === teamName) {
             setSelectedMatchId(null);
             setSelectedTeamName(null);
@@ -39,20 +34,20 @@ export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelect
             gap: 4,
             borderRadius: 4,
         }}>
-            <button 
-                style={{ 
-                    background: '#FFF', 
-                    height: 42, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: 8, 
+            <button
+                style={{
+                    background: '#FFF',
+                    height: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
                     cursor: 'pointer',
                     border: 'none',
                     width: '100%',
                     textAlign: 'left',
                     padding: '0 8px'
-                }} 
+                }}
                 onClick={(e) => {
                     e.stopPropagation();
                     handleClick(match.home.name);
@@ -64,14 +59,14 @@ export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelect
                 <p style={{ flex: 1, margin: 0 }}>{match.home.name}: {homeScore}</p>
             </button>
             <div style={{ height: 2, backgroundColor: 'black' }} />
-            <button 
-                style={{ 
-                    background: '#FFF', 
-                    height: 42, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: 8, 
+            <button
+                style={{
+                    background: '#FFF',
+                    height: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
                     cursor: 'pointer',
                     border: 'none',
                     width: '100%',

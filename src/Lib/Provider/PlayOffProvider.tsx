@@ -20,9 +20,6 @@ export const PlayOffProvider = ({ children, rounds, layout, renderMatch, renderP
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
 
-    console.log('Selected Match ID:', selectedMatchId);
-    console.log('Selected Team Name:', selectedTeamName);
-
     const setMatchRef = useCallback((id: string, el: HTMLElement | null) => {
         matchRefs.current[id] = el;
     }, []);

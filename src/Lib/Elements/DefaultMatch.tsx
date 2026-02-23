@@ -10,11 +10,6 @@ interface Props {
 
 export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelectedMatchId, setSelectedTeamName }: Props) => {
     const handleClick = (teamName: string | null) => {
-        console.log({
-            teamName,
-            isMatchSelected,
-            selectedTeam,
-        });
         if (isMatchSelected && selectedTeam === teamName) {
             setSelectedMatchId(null);
             setSelectedTeamName(null);
@@ -38,21 +33,21 @@ export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelected
                 gap: 4,
                 borderRadius: 4,
             }}>
-            <button 
+            <button
                 className={`__playoff-default-match-home ${selectedTeam === match.home.name ? '__playoff-team-selected' : ''}`}
-                style={{ 
-                    background: '#FFF', 
-                    height: 42, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: 8, 
+                style={{
+                    background: '#FFF',
+                    height: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
                     cursor: 'pointer',
                     border: 'none',
                     width: '100%',
                     textAlign: 'left',
                     padding: '0 8px'
-                }} 
+                }}
                 onClick={(e) => {
                     e.stopPropagation();
                     handleClick(match.home.name);
@@ -62,15 +57,15 @@ export const DefaultMatch = ({ match, isMatchSelected, selectedTeam, setSelected
                 <p style={{ flex: 1, margin: 0 }}>{match.home.name}: {homeScores}</p>
             </button>
             <div style={{ height: 2, backgroundColor: 'black' }} />
-            <button 
+            <button
                 className={`__playoff-default-match-away ${selectedTeam === match.away.name ? '__playoff-team-selected' : ''}`}
-                style={{ 
-                    background: '#FFF', 
-                    height: 42, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: 8, 
+                style={{
+                    background: '#FFF',
+                    height: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
                     cursor: 'pointer',
                     border: 'none',
                     width: '100%',
