@@ -37,7 +37,7 @@ const Inner = () => {
 
     return (
         <div
-            className="__playoff-root"
+            className={`__playoff-root __playoff-layout-${layout} ${isDragging ? '__playoff-dragging' : ''}`}
             ref={viewportRef}
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
