@@ -21,7 +21,7 @@ export const useZoom = (): UseZoomResult => {
                 e.preventDefault();
             }
             const delta = e.deltaY > 0 ? 0.9 : 1.1;
-            const newZoom = Math.min(Math.max(zoom * delta, 0.5), 1);
+            const newZoom = Math.min(Math.max(zoom * delta, 0.2), 1.8);
 
             if (newZoom !== zoom) {
                 const mouseX = e.clientX - viewportRect.left;
