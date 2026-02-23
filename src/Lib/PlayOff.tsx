@@ -12,10 +12,6 @@ interface Props {
     layout: PlayOffLayout;
     renderMatch: RenderMatchFunc;
     renderPaths?: boolean;
-    // startingZoom: number;
-    // max, min zoom
-    // renderStats : (stats: Stats) => React.ReactNode;
-    // statsPosition: 'top' | 'bottom';
 }
 // customized height
 
@@ -24,7 +20,6 @@ export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Pro
         <Inner />
     </PlayOffProvider>
 );
-
 
 const Inner = () => {
     const { 

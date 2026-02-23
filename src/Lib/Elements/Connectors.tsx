@@ -124,6 +124,7 @@ export const Connectors = () => {
 
     return (
         <svg
+            className="__playoff-connectors"
             style={{
                 position: 'absolute',
                 top: 0,
