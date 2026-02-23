@@ -25,9 +25,9 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                 display: 'flex',
                 flexDirection: 'column',
                 padding: '6px',
-                backgroundColor: 'var(--playoff-card-bg)',
+                backgroundColor: '#ffffff',
                 gap: '2px',
-                borderRadius: 'var(--playoff-radius)',
+                borderRadius: '8px',
                 minWidth: '180px',
             }}>
             <button
@@ -46,7 +46,7 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                     textAlign: 'left',
                     padding: '0 12px',
                     transition: 'all 0.2s',
-                    color: 'var(--playoff-text-primary)',
+                    color: '#1e293b',
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
@@ -57,11 +57,11 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                 <span style={{ fontSize: '14px', fontWeight: 500, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {match.home.name}
                 </span>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--playoff-text-secondary)', minWidth: '24px', textAlign: 'right' }}>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748b', minWidth: '24px', textAlign: 'right' }}>
                     {homeScores}
                 </span>
             </button>
-            <div style={{ height: 1, backgroundColor: 'var(--playoff-border)', margin: '2px 8px' }} />
+            <div style={{ height: 1, backgroundColor: '#cbd5e1', margin: '2px 8px' }} />
             <button
                 className={`__playoff-default-match-away ${selectedTeam === match.away.name ? '__playoff-team-selected' : ''}`}
                 style={{
@@ -78,7 +78,7 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                     textAlign: 'left',
                     padding: '0 12px',
                     transition: 'all 0.2s',
-                    color: 'var(--playoff-text-primary)',
+                    color: '#1e293b',
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
@@ -89,7 +89,7 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                 <span style={{ fontSize: '14px', fontWeight: 500, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {match.away.name}
                 </span>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--playoff-text-secondary)', minWidth: '24px', textAlign: 'right' }}>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748b', minWidth: '24px', textAlign: 'right' }}>
                     {awayScores}
                 </span>
             </button>
