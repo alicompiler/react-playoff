@@ -39,6 +39,17 @@ export const MatchContainer = ({
             setSelectedMatchId(match.id);
             setSelectedTeamName(null);
         }}
+        onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setSelectedMatchId(match.id);
+                setSelectedTeamName(null);
+            }
+        }}
+        tabIndex={0}
+        role="button"
+        aria-pressed={selectedMatchId === match.id}
+        aria-label={`Match between ${match.home.name} and ${match.away.name}`}
     >
         {renderMatch(match, renderOptions)}
     </div>;

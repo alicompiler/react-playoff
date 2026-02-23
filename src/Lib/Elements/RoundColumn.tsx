@@ -19,6 +19,8 @@ export const RoundColumn = ({ round }: Props) => {
     return (
         <div
             className="__round-column"
+            role="group"
+            aria-label={`Round ${round[0]?.metadata?.roundTitle || 'Match'}`}
             style={{
                 minWidth: '240px',
                 position: 'relative',

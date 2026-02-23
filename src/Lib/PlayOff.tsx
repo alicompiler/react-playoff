@@ -13,7 +13,6 @@ interface Props {
     renderMatch: RenderMatchFunc;
     renderPaths?: boolean;
 }
-// customized height
 
 export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Props) => (
     <PlayOffProvider rounds={rounds} renderMatch={renderMatch} layout={layout} renderPaths={renderPaths}>
@@ -39,18 +38,24 @@ const Inner = () => {
     return (
         <div
             className="__playoff-root"
-            role="application"
-            aria-label="Brackets"
             ref={viewportRef}
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                    setSelectedMatchId(null);
+                    setSelectedTeamName(null);
+                }
+            }}
             onClick={() => {
                 setSelectedMatchId(null);
                 setSelectedTeamName(null);
             }}
+            role="region"
+            aria-label="Tournament Bracket"
             style={{
                 display: 'flex',
                 cursor: isDragging ? 'grabbing' : 'grab',
