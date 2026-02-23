@@ -14,7 +14,7 @@ const mockContextBase: Partial<PlayOffContextType> = {
     rounds: [],
 };
 
-const wrapper = ({ children, context }: { children: React.ReactNode; context: any }) => (
+const wrapper = ({ children, context }: { children: React.ReactNode; context: PlayOffContextType }) => (
     <PlayOffContext.Provider value={context}>{children}</PlayOffContext.Provider>
 );
 
@@ -38,7 +38,7 @@ describe('Connectors', () => {
 
         const { container } = render(
             <Connectors />,
-            { wrapper: ({ children }) => wrapper({ children, context: { ...mockContextBase, rounds } }) }
+            { wrapper: ({ children }) => wrapper({ children, context: { ...mockContextBase, rounds } as PlayOffContextType }) }
         );
 
         const svg = container.querySelector('svg');
@@ -63,7 +63,7 @@ describe('Connectors', () => {
 
         const { container } = render(
             <Connectors />,
-            { wrapper: ({ children }) => wrapper({ children, context: { ...mockContextBase, rounds } }) }
+            { wrapper: ({ children }) => wrapper({ children, context: { ...mockContextBase, rounds } as PlayOffContextType }) }
         );
 
         const path = container.querySelector('path');
