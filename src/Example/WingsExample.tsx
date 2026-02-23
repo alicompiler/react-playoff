@@ -1,5 +1,5 @@
-import { PlayOff } from "../Lib/PlayOff";
-import type { Match, PlayOffLayout, RenderMatchFunc, Rounds } from "../Lib/Types";
+import { PlayOff } from "../Lib";
+import type { Match, PlayOffLayout, RenderMatchFunc, Rounds } from "../Lib";
 import { MatchComponent } from "./MatchComponent";
 
 const createMatch = (home: string, away: string, score: string, nextMatchId: string, metadata?: Record<string, unknown>, id?: string): Match => ({
@@ -61,12 +61,10 @@ const rounds: Rounds = [
 ];
 
 export const Example = ({ layout, renderPaths = true, defaultMatch }: { layout: PlayOffLayout, renderPaths?: boolean, defaultMatch?: boolean }) => {
-    const customMatchRender: RenderMatchFunc = (match, { selectedTeam, isMatchSelected, setSelectedMatchId, setSelectedTeamName }) => (
+    const customMatchRender: RenderMatchFunc = (match, { selectedTeam, setSelectedTeamName }) => (
         <MatchComponent
             match={match}
-            isMatchSelected={isMatchSelected}
             selectedTeam={selectedTeam}
-            setSelectedMatchId={setSelectedMatchId}
             setSelectedTeamName={setSelectedTeamName}
         />
     );

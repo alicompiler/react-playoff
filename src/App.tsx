@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Example } from "./Example/WingsExample";
-import type { PlayOffLayout } from "./Lib/Types";
+import type { PlayOffLayout } from "./Lib";
 import "./styles.css";
 
 function App() {

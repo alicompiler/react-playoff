@@ -1,20 +1,16 @@
-import type { Match } from "../Lib/Types";
+import type { Match } from "../Lib";
 
 interface Props {
     match: Match;
-    isMatchSelected: boolean;
     selectedTeam: string | null;
-    setSelectedMatchId: (id: string | null) => void;
     setSelectedTeamName: (name: string | null) => void;
 }
 
-export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelectedMatchId, setSelectedTeamName }: Props) => {
+export const MatchComponent = ({ match, selectedTeam, setSelectedTeamName }: Props) => {
     const handleClick = (teamName: string | null) => {
-        if (isMatchSelected && selectedTeam === teamName) {
-            setSelectedMatchId(null);
+        if (selectedTeam === teamName) {
             setSelectedTeamName(null);
         } else {
-            setSelectedMatchId(match.id);
             setSelectedTeamName(teamName);
         }
     };
@@ -30,7 +26,7 @@ export const MatchComponent = ({ match, isMatchSelected, selectedTeam, setSelect
             display: 'flex',
             flexDirection: 'column',
             padding: 4,
-            backgroundColor: isMatchSelected ? '#FFD700' : '#FFF',
+            backgroundColor: '#FFF',
             gap: 4,
             borderRadius: 4,
         }}>
