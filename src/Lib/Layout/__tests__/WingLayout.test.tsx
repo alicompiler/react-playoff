@@ -57,4 +57,19 @@ describe('WingsLayout', () => {
             expect(screen.getByText(id)).toBeInTheDocument();
         });
     });
+
+    it('renders empty rounds correctly', () => {
+        const rounds: Match[][] = [];
+
+        (useWings as Mock).mockReturnValue({
+            isLeftWing: () => false,
+            isRightWing: () => false,
+        });
+
+        render(<WingsLayout />, {
+            wrapper: ({ children }) => wrapper({ children, context: { ...mockContextBase, rounds } as PlayOffContextType }),
+        });
+
+        expect(screen.queryByTestId('match')).not.toBeInTheDocument();
+    });
 });

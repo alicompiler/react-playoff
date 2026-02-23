@@ -23,27 +23,26 @@ export const useZoom = (): UseZoomResult => {
             const delta = e.deltaY > 0 ? 0.9 : 1.1;
             const newZoom = Math.min(Math.max(zoom * delta, 0.2), 1.8);
 
-            if (newZoom !== zoom) {
-                const mouseX = e.clientX - viewportRect.left;
-                const mouseY = e.clientY - viewportRect.top;
+            const mouseX = e.clientX - viewportRect.left;
+            const mouseY = e.clientY - viewportRect.top;
 
-                const contentX = (mouseX - position.x) / zoom;
-                const contentY = (mouseY - position.y) / zoom;
+            const contentX = (mouseX - position.x) / zoom;
+            const contentY = (mouseY - position.y) / zoom;
 
-                const newPos = {
-                    x: mouseX - contentX * newZoom,
-                    y: mouseY - contentY * newZoom,
-                };
+            const newPos = {
+                x: mouseX - contentX * newZoom,
+                y: mouseY - contentY * newZoom,
+            };
 
-                setPosition(clampPosition(
-                    newPos,
-                    newZoom,
-                    viewportRect,
-                    contentWidth,
-                    contentHeight
-                ));
-                setZoom(newZoom);
-            }
+            setPosition(clampPosition(
+                newPos,
+                newZoom,
+                viewportRect,
+                contentWidth,
+                contentHeight
+            ));
+            setZoom(newZoom);
+
         } else {
             const newPos = {
                 x: position.x - e.deltaX,

@@ -53,6 +53,36 @@ describe('useMatchPositions', () => {
         expect(observe).toHaveBeenCalledWith(match1);
     });
 
+    it('should not observe when contentRef is null', () => {
+        const context = {
+            ...mockContextBase,
+            contentRef: { current: null },
+        } as PlayOffContextType;
+
+        renderHook(() => useMatchPositions(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        expect(observe).not.toHaveBeenCalled();
+    });
+
+    it('should not observe when matchRefs is has null ref', () => {
+        const context = {
+            ...mockContextBase,
+            matchRefs: {
+                current: {
+                    '1': null
+                }
+            },
+        } as PlayOffContextType;
+
+        renderHook(() => useMatchPositions(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        expect(observe).toHaveBeenCalledTimes(1);
+    });
+
     it('should disconnect observer on unmount', () => {
         const { unmount } = renderHook(() => useMatchPositions(), {
             wrapper: ({ children }) => wrapper({ children, context: mockContextBase as PlayOffContextType }),

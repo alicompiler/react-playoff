@@ -83,4 +83,35 @@ describe('DefaultMatch', () => {
         const homeButton = screen.getByLabelText(/Select Team A/);
         expect(homeButton.className).toContain('__playoff-team-selected');
     });
+
+    it('renders - when the score is not set', () => {
+        const matchWithoutScore: Match = {
+            id: '1',
+            home: { name: 'Team A' },
+            away: { name: 'Team B' },
+            nextMatchId: '3',
+        };
+        render(
+            <DefaultMatch
+                match={matchWithoutScore}
+                selectedTeam={null}
+                setSelectedTeamName={() => { }}
+            />
+        );
+        expect(screen.getAllByText('-')).toHaveLength(2);
+    });
+
+    it('set __playoff-team-selected classname when the away team get selected', () => {
+        const setSelectedTeamName = vi.fn();
+        render(
+            <DefaultMatch
+                match={mockMatch}
+                selectedTeam="Team B"
+                setSelectedTeamName={setSelectedTeamName}
+            />
+        );
+
+        const awayButton = screen.getByLabelText(/Select Team B/);
+        expect(awayButton.className).toContain('__playoff-team-selected');
+    });
 });

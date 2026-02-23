@@ -86,14 +86,37 @@ describe('PlayOff Integration', () => {
     });
 
     it('clears selection when pressing the Escape key', () => {
-        const { container } = render(<PlayOff rounds={mockRounds} layout="tree" />);
+        render(<PlayOff rounds={mockRounds} layout="tree" />);
 
         const teamA = screen.getAllByLabelText(/Select Team A/)[0];
         fireEvent.click(teamA);
         expect(teamA.className).toContain('__playoff-team-selected');
 
-        fireEvent.keyDown(container.firstChild as HTMLElement, { key: 'Escape' });
+        const playOffRoot = screen.getByRole('region');
+
+        fireEvent.keyDown(playOffRoot, { key: 'X' });
+        expect(teamA.className).toContain('__playoff-team-selected');
+
+        fireEvent.keyDown(playOffRoot, { key: 'Escape' });
 
         expect(teamA.className).not.toContain('__playoff-team-selected');
+    });
+
+    it('when start dragging, it should add __playoff-dragging class to the root container', () => {
+        const { container } = render(<PlayOff rounds={mockRounds} layout="tree" />);
+
+        const root = container.firstChild as HTMLElement;
+        fireEvent.mouseDown(root);
+        expect(root.className).toContain('__playoff-dragging');
+        expect(root.style.cursor).toBe('grabbing');
+    });
+
+    it('when stop dragging, it should remove __playoff-dragging class from the root container', () => {
+        const { container } = render(<PlayOff rounds={mockRounds} layout="tree" />);
+
+        const root = container.firstChild as HTMLElement;
+        fireEvent.mouseDown(root);
+        fireEvent.mouseUp(root);
+        expect(root.className).not.toContain('__playoff-dragging');
     });
 });
