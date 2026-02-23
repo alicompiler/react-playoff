@@ -30,10 +30,9 @@ const TestComponent = () => {
             <button onClick={() => setSelectedTeamName('Team Alpha')}>Select Alpha</button>
             <button onClick={() => setPosition({ x: 10, y: 20 })}>Set Position</button>
             <button onClick={() => setZoom(1.5)}>Set Zoom</button>
-            <button onClick={() => { setMatchRef('m1', { id: 'm1' } as any); forceUpdate(); }}>Add Ref</button>
+            <button onClick={() => { setMatchRef('m1', { id: 'm1' } as HTMLElement); forceUpdate(); }}>Add Ref</button>
         </div>
     );
-
 };
 
 describe('PlayOffProvider', () => {

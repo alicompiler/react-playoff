@@ -52,10 +52,8 @@ describe('WingsLayout', () => {
         const matches = screen.getAllByTestId('match');
         expect(matches).toHaveLength(7);
 
-        // Final match should be present
         expect(screen.getByText('7')).toBeInTheDocument();
 
-        // Verify we have all matches from both wings and final
         ['1', '2', '3', '4', '5', '6', '7'].forEach(id => {
             expect(screen.getByText(id)).toBeInTheDocument();
         });

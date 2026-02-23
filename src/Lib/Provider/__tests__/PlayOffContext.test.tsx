@@ -6,7 +6,6 @@ import { PlayOffProvider } from '../PlayOffProvider';
 
 describe('usePlayOffContext', () => {
     it('throws error when used outside of PlayOffProvider', () => {
-        // Suppress console.error for expected error
         const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
 
         expect(() => renderHook(() => usePlayOffContext())).toThrow('usePlayOffContext must be used within a PlayOffProvider');
