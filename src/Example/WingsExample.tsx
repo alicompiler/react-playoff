@@ -65,6 +65,7 @@ export const Example = ({ layout }: { layout: PlayOffLayout }) => {
         <div style={{
             backgroundColor: '#2B2B2B',
             width: '100%',
+            overflow: 'hidden',
         }}>
             <PlayOff
                 rounds={rounds}

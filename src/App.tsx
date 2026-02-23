@@ -30,7 +30,8 @@ function App() {
             <div style={{
                 display: 'flex',
                 flexDirection: 'row',
-                flex: 1
+                flex: 1,
+                overflow: 'hidden',
             }}>
                 <div style={{
                     backgroundColor: '#eee',
