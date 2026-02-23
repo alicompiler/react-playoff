@@ -1,4 +1,4 @@
-import type { Rounds } from "../Types";
+import type { MatchPosition, Rounds } from "../Types";
 
 export const getMatchIdsToHighlight = (
     selectedMatchId: string | null,
@@ -29,4 +29,38 @@ export const getMatchIdsToHighlight = (
     }
 
     return ids;
+};
+
+export const calculateMatchPositions = (contentDiv: HTMLDivElement | null, matchRefs: Record<string, HTMLElement | null>) => {
+    if (!contentDiv) {
+        return {};
+    }
+    
+    const newPositions: Record<string, MatchPosition> = {};
+    
+    for (const [id, el] of Object.entries(matchRefs)) {
+        if (el) {
+            let x = 0;
+            let y = 0;
+            let current: HTMLElement | null = el;
+            while (current && current !== contentDiv) {
+                x += current.offsetLeft;
+                y += current.offsetTop;
+                current =
+                                current.offsetParent instanceof HTMLElement
+                                    ? current.offsetParent
+                                    : null;
+            }
+    
+            newPositions[id] = {
+                id,
+                x,
+                y,
+                width: el.offsetWidth,
+                height: el.offsetHeight,
+            };
+        }
+    }
+
+    return newPositions;
 };
