@@ -50,9 +50,11 @@ export const Path = ({ matchPosition, nextMatchPosition, match }: Props) => {
     return <path
         className={`__playoff-path ${isHighlighted ? '__playoff-path--highlighted' : ''}`}
         d={drawPath}
-        stroke={isHighlighted ? '#10b981' : '#334155'}
-        strokeWidth={isHighlighted ? '5' : '2'}
+        stroke={isHighlighted ? 'var(--playoff-path-highlight)' : 'var(--playoff-path)'}
+        strokeWidth={isHighlighted ? '3' : '2'}
         fill="none"
-        style={{ transition: 'stroke 0.2s, stroke-width 0.2s' }}
+        strokeLinecap="round"
+        style={{ transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
     />;
+
 };

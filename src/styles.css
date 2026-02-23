@@ -1,11 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --playoff-bg: #f8fafc;
+    --playoff-card-bg: #ffffff;
+    --playoff-text-primary: #1e293b;
+    --playoff-text-secondary: #64748b;
+    --playoff-accent: #6366f1;
+    --playoff-accent-hover: #4f46e5;
+    --playoff-border: #e2e8f0;
+    --playoff-path: #cbd5e1;
+    --playoff-path-highlight: #10b981;
+    --playoff-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --playoff-radius: 8px;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--playoff-bg);
+    color: var(--playoff-text-primary);
+}
+
+.__playoff-default-match {
+    box-shadow: var(--playoff-shadow);
+    border: 1px solid var(--playoff-border);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.__playoff-default-match:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.__playoff-team-selected {
+    background-color: #f1f5f9 !important;
+    border: 2px solid var(--playoff-accent) !important;
+    font-weight: 600;
 }
 
 .__playoff-path--highlighted {
-    stroke: blue;
-    stroke-width: 5;
+    stroke: var(--playoff-path-highlight);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 4px var(--playoff-path-highlight));
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }

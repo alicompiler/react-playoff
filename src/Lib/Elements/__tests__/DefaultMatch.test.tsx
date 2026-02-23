@@ -23,8 +23,9 @@ describe('DefaultMatch', () => {
 
         expect(screen.getByText(/Team A/)).toBeInTheDocument();
         expect(screen.getByText(/Team B/)).toBeInTheDocument();
-        expect(screen.getByText(/: 1/)).toBeInTheDocument();
-        expect(screen.getByText(/: 0/)).toBeInTheDocument();
+        expect(screen.getByText('1')).toBeInTheDocument();
+        expect(screen.getByText('0')).toBeInTheDocument();
+
 
     });
 

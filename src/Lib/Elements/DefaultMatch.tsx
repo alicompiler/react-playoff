@@ -24,25 +24,29 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                padding: 4,
-                backgroundColor: '#FFF',
-                gap: 4,
-                borderRadius: 4,
+                padding: '6px',
+                backgroundColor: 'var(--playoff-card-bg)',
+                gap: '2px',
+                borderRadius: 'var(--playoff-radius)',
+                minWidth: '180px',
             }}>
             <button
                 className={`__playoff-default-match-home ${selectedTeam === match.home.name ? '__playoff-team-selected' : ''}`}
                 style={{
-                    background: '#FFF',
-                    height: 42,
+                    background: 'transparent',
+                    height: 38,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 8,
+                    justifyContent: 'space-between',
+                    gap: 12,
                     cursor: 'pointer',
-                    border: 'none',
+                    border: '1px solid transparent',
+                    borderRadius: '4px',
                     width: '100%',
                     textAlign: 'left',
-                    padding: '0 8px'
+                    padding: '0 12px',
+                    transition: 'all 0.2s',
+                    color: 'var(--playoff-text-primary)',
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
@@ -50,23 +54,31 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                 }}
                 aria-label={`Select ${match.home.name}`}
             >
-                <p style={{ flex: 1, margin: 0 }}>{match.home.name}: {homeScores}</p>
+                <span style={{ fontSize: '14px', fontWeight: 500, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {match.home.name}
+                </span>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--playoff-text-secondary)', minWidth: '24px', textAlign: 'right' }}>
+                    {homeScores}
+                </span>
             </button>
-            <div style={{ height: 2, backgroundColor: 'black' }} />
+            <div style={{ height: 1, backgroundColor: 'var(--playoff-border)', margin: '2px 8px' }} />
             <button
                 className={`__playoff-default-match-away ${selectedTeam === match.away.name ? '__playoff-team-selected' : ''}`}
                 style={{
-                    background: '#FFF',
-                    height: 42,
+                    background: 'transparent',
+                    height: 38,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 8,
+                    justifyContent: 'space-between',
+                    gap: 12,
                     cursor: 'pointer',
-                    border: 'none',
+                    border: '1px solid transparent',
+                    borderRadius: '4px',
                     width: '100%',
                     textAlign: 'left',
-                    padding: '0 8px'
+                    padding: '0 12px',
+                    transition: 'all 0.2s',
+                    color: 'var(--playoff-text-primary)',
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
@@ -74,11 +86,17 @@ export const DefaultMatch = ({ match, selectedTeam, setSelectedTeamName }: Props
                 }}
                 aria-label={`Select ${match.away.name}`}
             >
-                <p style={{ flex: 1, margin: 0 }}>{match.away.name}: {awayScores}</p>
+                <span style={{ fontSize: '14px', fontWeight: 500, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {match.away.name}
+                </span>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--playoff-text-secondary)', minWidth: '24px', textAlign: 'right' }}>
+                    {awayScores}
+                </span>
             </button>
         </div >
     );
 };
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const renderDefaultMatch: RenderMatchFunc = (match, options) => {
