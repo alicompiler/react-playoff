@@ -38,7 +38,7 @@ const Inner = () => {
     return (
         <div
             className={`__playoff-root __playoff-layout-${layout} ${isDragging ? '__playoff-dragging' : ''}`}
-            ref={viewportRef}
+            ref={viewportRef as React.RefObject<HTMLDivElement>}
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
@@ -64,7 +64,7 @@ const Inner = () => {
         >
             <div
                 className="__playoff-content"
-                ref={contentRef}
+                ref={contentRef as React.RefObject<HTMLDivElement>}
                 style={{
                     transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
                     transformOrigin: '0 0',

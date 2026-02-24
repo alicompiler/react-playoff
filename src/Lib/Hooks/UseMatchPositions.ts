@@ -13,20 +13,20 @@ export const useMatchPositions = (): UseMatchPositionsResult => {
 
     useEffect(() => {
         const observer = new ResizeObserver(() => {
-            const newPositions = calculateMatchPositions(contentRef.current, matchRefs.current);
+            const newPositions = calculateMatchPositions(contentRef.current, matchRefs.current || {});
             setMatchPositions(newPositions);
         });
 
         if (contentRef.current) {
             observer.observe(contentRef.current);
-            for (const el of Object.values(matchRefs.current)) {
+            for (const el of Object.values(matchRefs.current || {})) {
                 if (el) {
                     observer.observe(el);
                 }
             }
         }
 
-        setMatchPositions(calculateMatchPositions(contentRef.current, matchRefs.current));
+        setMatchPositions(calculateMatchPositions(contentRef.current, matchRefs.current || {}));
 
         return () => observer.disconnect();
     }, [contentRef, matchRefs]);

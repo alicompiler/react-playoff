@@ -26,7 +26,7 @@ const TestComponent = () => {
             <div data-testid="selected-team">{selectedTeamName ?? 'none'}</div>
             <div data-testid="position">{position.x},{position.y}</div>
             <div data-testid="zoom">{zoom}</div>
-            <div data-testid="match-ref-count">{Object.keys(matchRefs.current).length}</div>
+            <div data-testid="match-ref-count">{Object.keys(matchRefs.current || {}).length}</div>
             <button onClick={() => setSelectedTeamName('Team Alpha')}>Select Alpha</button>
             <button onClick={() => setPosition({ x: 10, y: 20 })}>Set Position</button>
             <button onClick={() => setZoom(1.5)}>Set Zoom</button>
