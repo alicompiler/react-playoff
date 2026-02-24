@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Example } from "./Example/WingsExample";
-import { NpmExample } from "./Example/NpmExample";
 import type { PlayOffLayout } from "./Lib";
 import "./styles.css";
 
@@ -8,8 +7,6 @@ function App() {
     const [layout, setLayout] = useState<PlayOffLayout>('wings');
     const [renderPaths, setRenderPaths] = useState(true);
     const [defaultMatch, setDefaultMatch] = useState(true);
-
-    const isNpmExample = typeof window !== 'undefined' && window.location.pathname.endsWith('/npm-example');
 
     return (
         <div style={{
@@ -178,11 +175,7 @@ function App() {
                         zIndex: 0
                     }} />
                     <div style={{ zIndex: 1, width: '100%', height: '100%' }}>
-                        {isNpmExample ? (
-                            <NpmExample layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
-                        ) : (
-                            <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
-                        )}
+                        <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
                     </div>
                 </main>
             </div>
