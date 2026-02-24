@@ -3,23 +3,22 @@ import { usePlayOffContext } from "../Provider/PlayOffContext";
 
 type UseZoomResult = {
     zoom: number;
-    handleWheel: (e: React.WheelEvent) => void;
+    handleWheel: (e: WheelEvent) => void;
 };
 
 export const useZoom = (): UseZoomResult => {
     const { position, setPosition, zoom, setZoom, viewportRef, contentRef } = usePlayOffContext();
 
-    const handleWheel = (e: React.WheelEvent) => {
+    const handleWheel = (e: WheelEvent) => {
         if (!viewportRef.current || !contentRef.current) return;
+
+        e.preventDefault();
 
         const viewportRect = viewportRef.current.getBoundingClientRect();
         const contentWidth = contentRef.current.offsetWidth;
         const contentHeight = contentRef.current.offsetHeight;
 
         if (e.ctrlKey || e.metaKey) {
-            if (e.cancelable) {
-                e.preventDefault();
-            }
             const delta = e.deltaY > 0 ? 0.9 : 1.1;
             const newZoom = Math.min(Math.max(zoom * delta, 0.2), 1.8);
 

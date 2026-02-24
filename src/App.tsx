@@ -174,8 +174,26 @@ function App() {
                         opacity: 0.5,
                         zIndex: 0
                     }} />
-                    <div style={{ zIndex: 1, width: '100%', height: '100%' }}>
+                    <div style={{ zIndex: 1, width: '100%', height: '100%', overflow: 'scroll' }}>
+                        <div style={{
+                            height: '500px',
+                            backgroundColor: '#a5d8a1',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <h1>Big Green Box</h1>
+                        </div>
                         <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
+                        <div style={{
+                            height: '500px',
+                            backgroundColor: '#87ceeb',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <h1>Big Blue Box</h1>
+                        </div>
                     </div>
                 </main>
             </div>

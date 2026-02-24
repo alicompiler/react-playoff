@@ -52,10 +52,11 @@ describe('useZoom', () => {
             clientX: 500,
             clientY: 500,
             preventDefault: vi.fn(),
-        } as unknown as React.WheelEvent;
+        } as unknown as WheelEvent;
 
         result.current.handleWheel(event);
 
+        expect(event.preventDefault).toHaveBeenCalled();
         expect(setZoom).toHaveBeenCalledWith(0.9);
         expect(setPosition).toHaveBeenCalledWith({ x: 50, y: 50 });
     });
@@ -89,14 +90,16 @@ describe('useZoom', () => {
             ctrlKey: false,
             deltaX: 10,
             deltaY: 20,
-        } as unknown as React.WheelEvent;
+            preventDefault: vi.fn(),
+        } as unknown as WheelEvent;
 
         result.current.handleWheel(event);
 
+        expect(event.preventDefault).toHaveBeenCalled();
         expect(setPosition).toHaveBeenCalledWith({ x: -10, y: -20 });
     });
 
-    it('should call preventDefault when ctrlKey is true and event is cancelable', () => {
+    it('should call preventDefault for all wheel events', () => {
         const viewport = document.createElement('div');
         vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
             left: 0,
@@ -115,19 +118,15 @@ describe('useZoom', () => {
             wrapper: ({ children }) => wrapper({ children, context }),
         });
 
-        const preventDefault = vi.fn();
         const event = {
-            ctrlKey: true,
+            ctrlKey: false,
             deltaY: 100,
-            clientX: 500,
-            clientY: 500,
-            cancelable: true,
-            preventDefault,
-        } as unknown as React.WheelEvent;
+            preventDefault: vi.fn(),
+        } as unknown as WheelEvent;
 
         result.current.handleWheel(event);
 
-        expect(preventDefault).toHaveBeenCalled();
+        expect(event.preventDefault).toHaveBeenCalled();
     });
 
     it('should zoom out when deltaY is negative', () => {
@@ -148,10 +147,12 @@ describe('useZoom', () => {
             deltaY: -100,
             clientX: 500,
             clientY: 500,
-        } as unknown as React.WheelEvent;
+            preventDefault: vi.fn(),
+        } as unknown as WheelEvent;
 
         result.current.handleWheel(event);
 
+        expect(event.preventDefault).toHaveBeenCalled();
         expect(setZoom).toHaveBeenCalledWith(1.1);
     });
 
@@ -168,7 +169,7 @@ describe('useZoom', () => {
             wrapper: ({ children }) => wrapper({ children, context }),
         });
 
-        result.current.handleWheel({} as React.WheelEvent);
+        result.current.handleWheel({} as WheelEvent);
         expect(setZoom).not.toHaveBeenCalled();
     });
 });

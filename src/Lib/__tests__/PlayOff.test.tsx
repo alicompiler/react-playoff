@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import { PlayOff } from '../PlayOff';
 import type { Rounds } from '../Types';
 
@@ -118,5 +118,24 @@ describe('PlayOff Integration', () => {
         fireEvent.mouseDown(root);
         fireEvent.mouseUp(root);
         expect(root.className).not.toContain('__playoff-dragging');
+    });
+
+    it('prevents default behavior on wheel events to avoid page scrolling', async () => {
+        render(<PlayOff rounds={mockRounds} layout="tree" />);
+        const playOffRoot = screen.getByRole('region');
+
+        const wheelEvent = new WheelEvent('wheel', {
+            bubbles: true,
+            cancelable: true,
+            deltaY: 100
+        });
+
+        const preventDefaultSpy = vi.spyOn(wheelEvent, 'preventDefault');
+
+        await act(async () => {
+            playOffRoot.dispatchEvent(wheelEvent);
+        });
+
+        expect(preventDefaultSpy).toHaveBeenCalled();
     });
 });

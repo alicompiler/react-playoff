@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Connectors } from "./Elements/Connectors";
 import { useDragging } from "./Hooks/UseDragging";
 import { useZoom } from "./Hooks/UseZoom";
@@ -35,11 +36,20 @@ const Inner = () => {
     const { handleWheel } = useZoom();
     const { isDragging, handleMouseDown, handleMouseMove, handleMouseUp } = useDragging();
 
+    useEffect(() => {
+        const viewport = viewportRef.current;
+        if (!viewport) return;
+
+        viewport.addEventListener('wheel', handleWheel, { passive: false });
+        return () => {
+            viewport.removeEventListener('wheel', handleWheel);
+        };
+    }, [handleWheel, viewportRef]);
+
     return (
         <div
             className={`__playoff-root __playoff-layout-${layout} ${isDragging ? '__playoff-dragging' : ''}`}
             ref={viewportRef as React.RefObject<HTMLDivElement>}
-            onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
