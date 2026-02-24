@@ -12,13 +12,13 @@ export const useZoom = (): UseZoomResult => {
     const handleWheel = (e: WheelEvent) => {
         if (!viewportRef.current || !contentRef.current) return;
 
-        e.preventDefault();
-
         const viewportRect = viewportRef.current.getBoundingClientRect();
         const contentWidth = contentRef.current.offsetWidth;
         const contentHeight = contentRef.current.offsetHeight;
 
         if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+
             const delta = e.deltaY > 0 ? 0.9 : 1.1;
             const newZoom = Math.min(Math.max(zoom * delta, 0.2), 1.8);
 
@@ -43,18 +43,25 @@ export const useZoom = (): UseZoomResult => {
             setZoom(newZoom);
 
         } else {
-            const newPos = {
+            const desiredPos = {
                 x: position.x - e.deltaX,
                 y: position.y - e.deltaY,
             };
 
-            setPosition(clampPosition(
-                newPos,
+            const clampedPos = clampPosition(
+                desiredPos,
                 zoom,
                 viewportRect,
                 contentWidth,
                 contentHeight
-            ));
+            );
+
+            const willMove = clampedPos.x !== position.x || clampedPos.y !== position.y;
+
+            if (willMove) {
+                e.preventDefault();
+                setPosition(clampedPos);
+            }
         }
     };
 

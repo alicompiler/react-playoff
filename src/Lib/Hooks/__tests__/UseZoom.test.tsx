@@ -61,7 +61,7 @@ describe('useZoom', () => {
         expect(setPosition).toHaveBeenCalledWith({ x: 50, y: 50 });
     });
 
-    it('should update position on wheel without ctrlKey (panning)', () => {
+    it('should call preventDefault and update position when panning with room to move', () => {
         const setPosition = vi.fn();
         const viewport = document.createElement('div');
         vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
@@ -77,6 +77,7 @@ describe('useZoom', () => {
 
         const context = {
             ...mockContextBase,
+            position: { x: -200, y: -200 },
             setPosition,
             viewportRef: { current: viewport },
             contentRef: { current: content },
@@ -96,10 +97,11 @@ describe('useZoom', () => {
         result.current.handleWheel(event);
 
         expect(event.preventDefault).toHaveBeenCalled();
-        expect(setPosition).toHaveBeenCalledWith({ x: -10, y: -20 });
+        expect(setPosition).toHaveBeenCalledWith({ x: -210, y: -220 });
     });
 
-    it('should call preventDefault for all wheel events', () => {
+    it('should NOT call preventDefault when panning but content is already at the boundary', () => {
+        const setPosition = vi.fn();
         const viewport = document.createElement('div');
         vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
             left: 0,
@@ -108,10 +110,16 @@ describe('useZoom', () => {
             height: 1000,
         } as DOMRect);
 
+        const content = document.createElement('div');
+        Object.defineProperty(content, 'offsetWidth', { value: 500 });
+        Object.defineProperty(content, 'offsetHeight', { value: 500 });
+
         const context = {
             ...mockContextBase,
+            position: { x: 900, y: 900 },
+            setPosition,
             viewportRef: { current: viewport },
-            contentRef: { current: document.createElement('div') },
+            contentRef: { current: content },
         } as PlayOffContextType;
 
         const { result } = renderHook(() => useZoom(), {
@@ -120,13 +128,96 @@ describe('useZoom', () => {
 
         const event = {
             ctrlKey: false,
-            deltaY: 100,
+            deltaX: -50,
+            deltaY: -50,
+            preventDefault: vi.fn(),
+        } as unknown as WheelEvent;
+
+        result.current.handleWheel(event);
+
+        expect(event.preventDefault).not.toHaveBeenCalled();
+        expect(setPosition).not.toHaveBeenCalled();
+    });
+
+    it('should call preventDefault when only one axis still has room to pan', () => {
+        const setPosition = vi.fn();
+        const viewport = document.createElement('div');
+        vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
+            left: 0,
+            top: 0,
+            width: 1000,
+            height: 1000,
+        } as DOMRect);
+
+        const content = document.createElement('div');
+        Object.defineProperty(content, 'offsetWidth', { value: 500 });
+        Object.defineProperty(content, 'offsetHeight', { value: 500 });
+
+        const context = {
+            ...mockContextBase,
+            position: { x: 900, y: 0 },
+            setPosition,
+            viewportRef: { current: viewport },
+            contentRef: { current: content },
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useZoom(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        const event = {
+            ctrlKey: false,
+            deltaX: -50,
+            deltaY: 20,
             preventDefault: vi.fn(),
         } as unknown as WheelEvent;
 
         result.current.handleWheel(event);
 
         expect(event.preventDefault).toHaveBeenCalled();
+        expect(setPosition).toHaveBeenCalled();
+    });
+
+    it('should always call preventDefault when zooming (ctrlKey), even at boundary', () => {
+        const setZoom = vi.fn();
+        const setPosition = vi.fn();
+        const viewport = document.createElement('div');
+        vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue({
+            left: 0,
+            top: 0,
+            width: 1000,
+            height: 1000,
+        } as DOMRect);
+
+        const content = document.createElement('div');
+        Object.defineProperty(content, 'offsetWidth', { value: 500 });
+        Object.defineProperty(content, 'offsetHeight', { value: 500 });
+
+        const context = {
+            ...mockContextBase,
+            position: { x: 900, y: 900 },
+            setPosition,
+            setZoom,
+            viewportRef: { current: viewport },
+            contentRef: { current: content },
+        } as PlayOffContextType;
+
+        const { result } = renderHook(() => useZoom(), {
+            wrapper: ({ children }) => wrapper({ children, context }),
+        });
+
+        const event = {
+            ctrlKey: true,
+            deltaY: 100,
+            clientX: 500,
+            clientY: 500,
+            preventDefault: vi.fn(),
+        } as unknown as WheelEvent;
+
+        result.current.handleWheel(event);
+
+        expect(event.preventDefault).toHaveBeenCalled();
+        expect(setZoom).toHaveBeenCalled();
     });
 
     it('should zoom out when deltaY is negative', () => {
