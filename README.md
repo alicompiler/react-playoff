@@ -186,6 +186,41 @@ you may need to add `!important` to the styles to override the default styles.
 - **Pan**: Click and drag anywhere in the empty space of the bracket to move it around.
 - **Highlighting**: Clicking a team name (in the default renderer) will highlight their entire path through the tournament.
 
+## Contributing
+
+Contributions are welcome! Whether you're reporting a bug, suggesting a feature, or submitting a pull request, we appreciate your help.
+
+### Development Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/alicompiler/react-playoff.git
+   cd react-playoff
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+### Testing
+
+We use [Vitest](https://vitest.dev/) for testing. Please ensure all tests pass before submitting a PR.
+```bash
+npm test
+```
+
+### Submitting a PR
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and commit them: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin feature/your-feature-name`.
+5. Open a pull request.
+
 ## License
 
 MIT © [Ali]
