@@ -7,7 +7,8 @@ function App() {
     const [layout, setLayout] = useState<PlayOffLayout>('wings');
     const [renderPaths, setRenderPaths] = useState(true);
     const [defaultMatch, setDefaultMatch] = useState(true);
-    const [initialZoom, setInitialZoom] = useState(0.50);
+    const [initialZoom, setInitialZoom] = useState(0.75);
+    const [exampleKey, setExampleKey] = useState(0);
 
     return (
         <div style={{
@@ -173,6 +174,23 @@ function App() {
                                         accentColor: 'var(--playoff-accent)'
                                     }}
                                 />
+                                <button
+                                    onClick={() => setExampleKey((value) => value + 1)}
+                                    style={{
+                                        marginTop: '8px',
+                                        width: '100%',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        padding: '10px 12px',
+                                        background: 'var(--playoff-accent)',
+                                        color: '#fff',
+                                        fontSize: '13px',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Refresh Bracket
+                                </button>
                             </div>
                         </div>
                     </section>
@@ -208,7 +226,7 @@ function App() {
                             height: '600px',
                             overflow: 'hidden',
                         }}>
-                            <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} initialZoom={initialZoom} />
+                            <Example key={exampleKey} layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} initialZoom={initialZoom} />
                         </div>
                         <div style={{
                             height: '500px',
