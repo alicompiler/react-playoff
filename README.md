@@ -51,6 +51,7 @@ const App = () => (
         <PlayOff 
             rounds={rounds} 
             layout="tree" 
+            initialZoom={1.25}
         />
     </div>
 );
@@ -92,6 +93,7 @@ the order of the rounds is from top to bottom.
 | `layout` | `'tree' \| 'wings'` | **Required** | The layout style of the bracket. |
 | `renderMatch` | `RenderMatchFunc` | `DefaultMatch` | Custom function to render each match component. |
 | `renderPaths` | `boolean` | `true` | Whether to draw the SVG lines connecting matches. |
+| `initialZoom` | `number` | `1` | Initial zoom level when the bracket first renders. |
 
 ## Customization
 
@@ -110,7 +112,7 @@ const customRender: RenderMatchFunc = (match, { selectedTeam, setSelectedTeamNam
     </div>
 );
 
-<PlayOff rounds={rounds} layout="wings" renderMatch={customRender} />
+<PlayOff rounds={rounds} layout="wings" renderMatch={customRender} initialZoom={1.1} />
 ```
 
 ### 2. Styling with CSS

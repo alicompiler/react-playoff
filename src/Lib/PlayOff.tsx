@@ -14,10 +14,11 @@ interface Props {
     layout: PlayOffLayout;
     renderMatch?: RenderMatchFunc;
     renderPaths?: boolean;
+    initialZoom?: number;
 }
 
-export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true }: Props) => (
-    <PlayOffProvider rounds={rounds} renderMatch={renderMatch ?? renderDefaultMatch} layout={layout} renderPaths={renderPaths}>
+export const PlayOff = ({ rounds, layout, renderMatch, renderPaths = true, initialZoom }: Props) => (
+    <PlayOffProvider rounds={rounds} renderMatch={renderMatch ?? renderDefaultMatch} layout={layout} renderPaths={renderPaths} initialZoom={initialZoom}>
         <Inner />
     </PlayOffProvider>
 );

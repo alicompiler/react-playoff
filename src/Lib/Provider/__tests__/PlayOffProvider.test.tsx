@@ -101,4 +101,83 @@ describe('PlayOffProvider', () => {
         });
         expect(screen.getByTestId('match-ref-count').textContent).toBe('1');
     });
+
+    it('uses default zoom value of 1 when initialZoom is not provided', () => {
+        render(
+            <PlayOffProvider
+                rounds={mockRounds}
+                layout="tree"
+                renderMatch={mockRenderMatch}
+            >
+                <TestComponent />
+            </PlayOffProvider>
+        );
+
+        expect(screen.getByTestId('zoom').textContent).toBe('1');
+    });
+
+    it('initializes zoom with provided initialZoom value', () => {
+        render(
+            <PlayOffProvider
+                rounds={mockRounds}
+                layout="tree"
+                renderMatch={mockRenderMatch}
+                initialZoom={2.5}
+            >
+                <TestComponent />
+            </PlayOffProvider>
+        );
+
+        expect(screen.getByTestId('zoom').textContent).toBe('2.5');
+    });
+
+    it('initializes zoom with initialZoom value of 0', () => {
+        render(
+            <PlayOffProvider
+                rounds={mockRounds}
+                layout="tree"
+                renderMatch={mockRenderMatch}
+                initialZoom={0}
+            >
+                <TestComponent />
+            </PlayOffProvider>
+        );
+
+        expect(screen.getByTestId('zoom').textContent).toBe('0');
+    });
+
+    it('initializes zoom with fractional initialZoom value', () => {
+        render(
+            <PlayOffProvider
+                rounds={mockRounds}
+                layout="tree"
+                renderMatch={mockRenderMatch}
+                initialZoom={0.75}
+            >
+                <TestComponent />
+            </PlayOffProvider>
+        );
+
+        expect(screen.getByTestId('zoom').textContent).toBe('0.75');
+    });
+
+    it('allows updating zoom even when initialZoom is provided', () => {
+        render(
+            <PlayOffProvider
+                rounds={mockRounds}
+                layout="tree"
+                renderMatch={mockRenderMatch}
+                initialZoom={2}
+            >
+                <TestComponent />
+            </PlayOffProvider>
+        );
+
+        expect(screen.getByTestId('zoom').textContent).toBe('2');
+
+        act(() => {
+            screen.getByText('Set Zoom').click();
+        });
+        expect(screen.getByTestId('zoom').textContent).toBe('1.5');
+    });
 });

@@ -60,7 +60,7 @@ const rounds: Rounds = [
     ]
 ];
 
-export const Example = ({ layout, renderPaths = true, defaultMatch }: { layout: PlayOffLayout, renderPaths?: boolean, defaultMatch?: boolean }) => {
+export const Example = ({ layout, renderPaths = true, defaultMatch, initialZoom = 1 }: { layout: PlayOffLayout, renderPaths?: boolean, defaultMatch?: boolean, initialZoom?: number }) => {
     const customMatchRender: RenderMatchFunc = (match, { selectedTeam, setSelectedTeamName }) => (
         <MatchComponent
             match={match}
@@ -73,13 +73,13 @@ export const Example = ({ layout, renderPaths = true, defaultMatch }: { layout: 
         <div style={{
             backgroundColor: '#2B2B2B',
             width: '100%',
-            overflow: 'hidden',
         }}>
             <PlayOff
                 rounds={rounds}
                 layout={layout}
                 renderPaths={renderPaths}
                 renderMatch={defaultMatch ? undefined : customMatchRender}
+                initialZoom={initialZoom}
             />
         </div>
     );

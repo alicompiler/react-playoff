@@ -7,6 +7,7 @@ function App() {
     const [layout, setLayout] = useState<PlayOffLayout>('wings');
     const [renderPaths, setRenderPaths] = useState(true);
     const [defaultMatch, setDefaultMatch] = useState(true);
+    const [initialZoom, setInitialZoom] = useState(0.50);
 
     return (
         <div style={{
@@ -154,6 +155,25 @@ function App() {
                                 </div>
                                 Premium Theme
                             </label>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <label style={{ fontSize: '14px', fontWeight: 500 }}>
+                                    Initial Zoom: {initialZoom.toFixed(2)}x
+                                </label>
+                                <input
+                                    type="range"
+                                    min="0.25"
+                                    max="3"
+                                    step="0.25"
+                                    value={initialZoom}
+                                    onChange={(e) => setInitialZoom(parseFloat(e.target.value))}
+                                    style={{
+                                        width: '100%',
+                                        cursor: 'pointer',
+                                        accentColor: 'var(--playoff-accent)'
+                                    }}
+                                />
+                            </div>
                         </div>
                     </section>
 
@@ -184,7 +204,12 @@ function App() {
                         }}>
                             <h1>Big Green Box</h1>
                         </div>
-                        <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} />
+                        <div style={{
+                            height: '600px',
+                            overflow: 'hidden',
+                        }}>
+                            <Example layout={layout} renderPaths={renderPaths} defaultMatch={defaultMatch} initialZoom={initialZoom} />
+                        </div>
                         <div style={{
                             height: '500px',
                             backgroundColor: '#87ceeb',

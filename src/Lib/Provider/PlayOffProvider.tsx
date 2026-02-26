@@ -7,16 +7,17 @@ interface Props extends PropsWithChildren {
     layout: PlayOffLayout;
     renderMatch: RenderMatchFunc;
     renderPaths?: boolean;
+    initialZoom?: number;
 }
 
-export const PlayOffProvider = ({ children, rounds, layout, renderMatch, renderPaths = true }: Props) => {
+export const PlayOffProvider = ({ children, rounds, layout, renderMatch, renderPaths = true, initialZoom }: Props) => {
     const viewportRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const matchRefs = useRef<Record<string, HTMLElement | null>>({});
     const [selectedTeamName, setSelectedTeamName] = useState<string | null>(null);
 
     const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
+    const [zoom, setZoom] = useState(initialZoom ?? 1);
 
     const setMatchRef = useCallback((id: string, el: HTMLElement | null) => {
         matchRefs.current[id] = el;
